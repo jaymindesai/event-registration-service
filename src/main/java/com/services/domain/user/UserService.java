@@ -23,7 +23,6 @@ public class UserService {
 
     public void checkIfUserRegistered(){
         User user = userRepository.findByEmail(request.getHeader("email"));
-        System.out.println("USER - " + user);
         if(user == null){
             throw new UnregisteredUserException("User not registered");
         }

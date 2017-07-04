@@ -15,6 +15,7 @@ public class EventConverter {
 
     public EventDto convertToDto(Event event){
         return EventDto.builder()
+                .code(event.getCode())
                 .name(event.getName())
                 .date(event.getDate())
                 .venue(venueConverter.convertToDto(event.getVenue()))
@@ -23,6 +24,7 @@ public class EventConverter {
 
     public Event convertToEvent(EventDto eventDto){
         return Event.builder()
+                .code(eventDto.getCode())
                 .name(eventDto.getName())
                 .date(eventDto.getDate())
                 .venue(venueConverter.convertToVenue(eventDto.getVenue()))

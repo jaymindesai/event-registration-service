@@ -1,5 +1,7 @@
 package com.services.domain;
 
+import lombok.Getter;
+
 public enum City {
 
     AHMEDABAD("Ahmedabad"),
@@ -7,13 +9,10 @@ public enum City {
     DELHI("Delhi"),
     MUMBAI("Mumbai");
 
+    @Getter
     private String value;
 
     City(String value){
         this.value = value;
-    }
-
-    public String value(){
-        return value;
     }
 }

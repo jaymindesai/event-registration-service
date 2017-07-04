@@ -18,6 +18,9 @@ import static javax.persistence.FetchType.EAGER;
 @Entity
 public class Event extends AbstractEntity {
 
+    @Column(name = "EVENT_CODE", unique = true, nullable = false)
+    private String code;
+
     @Column(name = "EVENT_NAME", nullable = false)
     private String name;
 

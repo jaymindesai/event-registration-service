@@ -12,12 +12,16 @@ import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.EAGER;
 
 @Data
+@ToString(exclude = "venue")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Entity
 public class TimeSlot extends AbstractEntity {
+
+    @Column(name = "SLOT_CODE", nullable = false)
+    private String slotCode;
 
     @Column(name = "START_TIME", nullable = false)
     private LocalTime startTime;

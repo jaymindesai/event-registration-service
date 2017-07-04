@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EventRepository extends CrudRepository<Event, Integer> {
+
+    Event findByCode(String code);
+
+    void deleteByCode(String code);
 }

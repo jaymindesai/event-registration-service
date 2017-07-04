@@ -28,12 +28,14 @@ public class VenueConverter {
     }
 
     public Venue convertToVenue(VenueDto venueDto) {
-        return Venue.builder()
+        Venue venue = Venue.builder()
                 .name(venueDto.getName())
                 .city(venueDto.getCity())
                 .timeSlots(venueDto.getTimeSlots().stream()
                         .map(timeSlotConverter::convertToTimeSlot)
                         .collect(toList()))
                 .build();
+        venue.getTimeSlots().forEach(slot -> slot.setVenue(venue));
+        return venue;
     }
 }

@@ -1,5 +1,6 @@
 package com.services.domain.event;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.services.domain.AbstractDto;
 import lombok.*;
 
@@ -15,10 +16,15 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = false)
 public class EventDto extends AbstractDto {
 
+    @NotNull(message = "Event code must be defined")
+    @Valid
+    private String code;
+
     @NotNull(message = "Event name must be defined")
     @Valid
     private String name;
 
+    @JsonFormat(pattern = "dd-MM-yyyy")
     @NotNull(message = "Event date must be defined")
     @Valid
     private LocalDate date;
