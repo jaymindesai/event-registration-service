@@ -1,8 +1,8 @@
-# **event-registration-service**
+# **Event-Registration-Service**
 
-## Backend API for a specific Regstraation System.
+## Backend API for a specific on demand Registration System.
 
-### Development Kit - jdk8
+### Development Kit - Java 8
 ### Framework - Spring Boot
 ### Database - MySQL
  
@@ -13,7 +13,6 @@
 
 #### Setup:
   ##### Populate DB:
-   - create database registrationDB or change the datasource url in `src/main/resources/**application.yml**`
+   - create database registrationDB or change the datasource url in `src/main/resources/application.yml`
    - start server : **mvn spring-boot:run**
    - hit : **localhost:8090/api/db/populate**
- 
