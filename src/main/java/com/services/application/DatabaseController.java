@@ -48,37 +48,6 @@ public class DatabaseController {
     public void insertData() {
         insertIntoAllTables();
         insertEvents();
-        Venue venue = Venue.builder()
-                .name("Howrah Bridge")
-                .city(KOLKATA.getValue())
-                .build();
-
-        TimeSlot timeSlot1 = TimeSlot.builder()
-                .slotCode(MORNING_SECOND.getCode())
-                .startTime(MORNING_SECOND.getStartTime())
-                .endTime(MORNING_SECOND.getEndTime())
-                .capacity(35)
-                .venue(venue)
-                .build();
-
-        TimeSlot timeSlot2 = TimeSlot.builder()
-                .slotCode(AFTERNOON_SECOND.getCode())
-                .startTime(AFTERNOON_SECOND.getStartTime())
-                .endTime(AFTERNOON_SECOND.getEndTime())
-                .capacity(45)
-                .venue(venue)
-                .build();
-
-        venue.setTimeSlots(asList(timeSlot1, timeSlot2));
-
-        Event event = Event.builder()
-                .code("000")
-                .name("Some Event")
-                .date(LocalDate.of(2017, 10, 15))
-                .venue(venue)
-                .build();
-
-        eventRepository.save(event);
     }
 
     private void insertEvents() {

@@ -10,7 +10,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
       naming:
         strategy: org.hibernate.cfg.ImprovedNamingStrategy
     show-sql: false
