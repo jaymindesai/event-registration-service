@@ -1,9 +1,7 @@
 package com.services.domain.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.services.domain.AbstractDto;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,7 +10,8 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressDto {
+@EqualsAndHashCode(callSuper = false)
+public class AddressDto extends AbstractDto {
 
     private String house;
 

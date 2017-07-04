@@ -1,9 +1,7 @@
 package com.services.domain.event;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.services.domain.AbstractDto;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -14,7 +12,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VenueDto {
+@EqualsAndHashCode(callSuper = false)
+public class VenueDto extends AbstractDto {
 
     @NotNull(message = "Venue name must be defined")
     @Valid

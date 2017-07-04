@@ -1,9 +1,7 @@
 package com.services.domain.event;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.services.domain.AbstractDto;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -14,7 +12,8 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EventDto {
+@EqualsAndHashCode(callSuper = false)
+public class EventDto extends AbstractDto {
 
     @NotNull(message = "Event name must be defined")
     @Valid

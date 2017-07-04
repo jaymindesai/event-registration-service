@@ -1,9 +1,7 @@
 package com.services.domain.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.services.domain.AbstractDto;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,7 +10,8 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContactDto {
+@EqualsAndHashCode(callSuper = false)
+public class ContactDto extends AbstractDto {
 
     @NotNull(message = "User must have a primary contact number")
     @Valid

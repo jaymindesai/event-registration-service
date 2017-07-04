@@ -1,9 +1,7 @@
 package com.services.domain.event;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.services.domain.AbstractDto;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
@@ -14,7 +12,8 @@ import java.time.LocalTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TimeSlotDto {
+@EqualsAndHashCode(callSuper = false)
+public class TimeSlotDto extends AbstractDto {
 
     @NotNull(message = "Start time must be defined")
     @Valid

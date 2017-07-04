@@ -1,9 +1,7 @@
 package com.services.domain.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.services.domain.AbstractDto;
+import lombok.*;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.Valid;
@@ -13,7 +11,8 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+@EqualsAndHashCode(callSuper = false)
+public class UserDto extends AbstractDto {
 
     @NotNull(message = "First name must be defined")
     @Valid
