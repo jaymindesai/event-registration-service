@@ -2,6 +2,7 @@ package com.services.application;
 
 import com.services.domain.event.EventDto;
 import com.services.domain.event.EventService;
+import com.services.domain.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +17,21 @@ import static org.springframework.http.HttpStatus.ACCEPTED;
 public class EventController {
 
     private final EventService eventService;
+    private final UserService userService;
 
     @Autowired
-    public EventController(EventService eventService) {
+    public EventController(EventService eventService, UserService userService) {
         this.eventService = eventService;
+        this.userService = userService;
     }
 
+    /*
+     * This endpoint provides list of events only to the pre-registered users of this system.
+     * For that a unique email_id of the registered user must be present in the request header.
+     */
     @GetMapping("")
     public List<EventDto> getEvents(){
+        userService.checkIfUserRegistered();
         return eventService.getEvents();
     }
 
