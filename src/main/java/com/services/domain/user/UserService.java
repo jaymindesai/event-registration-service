@@ -1,7 +1,7 @@
 package com.services.domain.user;
 
 import com.services.domain.user.converters.UserConverter;
-import com.services.exceptions.UnregisteredUserException;
+import com.services.application.handler.exceptions.UnregisteredUserException;
 import com.services.infrastructure.UserRepository;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;

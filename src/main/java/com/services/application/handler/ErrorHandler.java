@@ -1,9 +1,7 @@
 package com.services.application.handler;
 
-import com.services.exceptions.InvalidEventException;
-import com.services.exceptions.UnregisteredUserException;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
-import org.springframework.http.ResponseEntity;
+import com.services.application.handler.exceptions.InvalidEventException;
+import com.services.application.handler.exceptions.UnregisteredUserException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 

@@ -1,4 +1,4 @@
-package com.services.exceptions;
+package com.services.application.handler.exceptions;
 
 public class UnregisteredUserException extends RuntimeException {
 
