@@ -3,7 +3,13 @@ package com.services.application;
 import com.services.domain.user.UserDto;
 import com.services.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
+import static org.springframework.http.HttpStatus.ACCEPTED;
 
 @RestController
 @RequestMapping("users")
@@ -21,4 +27,16 @@ public class UserController {
         return userService.find(id);
     }
 
+    @PostMapping("")
+    @ResponseStatus(ACCEPTED)
+    public void addUser(@Valid @RequestBody UserDto user, BindingResult result){
+        userService.validateUser(result);
+        userService.addUser(user);
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(ACCEPTED)
+    public void deleteUser(@PathVariable Integer id){
+        userService.delete(id);
+    }
 }

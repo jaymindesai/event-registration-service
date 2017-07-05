@@ -24,7 +24,6 @@ public class User extends AbstractEntity {
     @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
-    @Email(message = "Please enter valid email address")
     @Column(name = "EMAIL", unique = true, nullable = false)
     private String email;
 

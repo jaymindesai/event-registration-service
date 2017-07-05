@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Data
 @Builder
@@ -13,6 +14,9 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class UserDto extends AbstractDto {
+
+    private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
     private Integer id;
 
@@ -24,8 +28,7 @@ public class UserDto extends AbstractDto {
     @Valid
     private String lastName;
 
-    @Email(message = "Please enter valid email address")
-    @NotNull(message = "Email must be defined")
+    @Pattern(regexp = EMAIL_PATTERN, message = "Enter valid email address")
     @Valid
     private String email;
 
