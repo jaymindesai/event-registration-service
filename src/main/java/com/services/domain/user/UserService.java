@@ -57,7 +57,7 @@ public class UserService {
     }
 
     private String createErrorMessage(BindingResult result) {
-        StringBuilder errors = new StringBuilder("Errors : ");
+        StringBuilder errors = new StringBuilder();
         result.getAllErrors().stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .forEach(error -> errors.append(error).append(", "));
