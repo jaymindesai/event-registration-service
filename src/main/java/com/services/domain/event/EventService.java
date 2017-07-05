@@ -26,17 +26,15 @@ public class EventService {
 
     @Transactional
     public EventDto findByCode(String code) {
-        return eventConverter.convertToDto(eventRepository.findByCode(code));
+        return eventConverter.convertToDto(isValidEvent(code));
     }
 
     @Transactional
     public EventDto updateSlotCapacity(String code, String slotCode, int capacity) {
         Event event = isValidEvent(code);
-        event.getVenue().getTimeSlots().forEach(slot -> {
-            if (slot.getSlotCode().equals(slotCode)) {
-                slot.setCapacity(capacity);
-            }
-        });
+        event.getVenue().getTimeSlots().stream()
+                .filter(slot -> slot.getSlotCode().equals(slotCode))
+                .forEach(slot -> slot.setCapacity(capacity));
         Event updatedEvent = eventRepository.save(event);
         return eventConverter.convertToDto(updatedEvent);
     }
@@ -50,13 +48,14 @@ public class EventService {
 
     @Transactional
     public void deleteByCode(String code) {
-        eventRepository.deleteByCode(code);
+        Event event = isValidEvent(code);
+        eventRepository.deleteByCode(event.getCode());
     }
 
     public Event isValidEvent(String code) {
         Event event = eventRepository.findByCode(code);
         if (event == null) {
-            throw new InvalidEventException("Invalid event code. No event found for code: " + code);
+            throw new InvalidEventException("Invalid event code - " + code + ", no such event found.");
         }
         return event;
     }
