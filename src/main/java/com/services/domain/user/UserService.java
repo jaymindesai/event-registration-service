@@ -32,7 +32,8 @@ public class UserService {
     }
 
     @Transactional
-    public Boolean addUser(UserDto user) {
+    public Boolean addUser(UserDto user, BindingResult result) {
+        validateUser(result);
         return userRepository.save(userConverter.convertToUser(user)) != null;
     }
 
@@ -41,21 +42,21 @@ public class UserService {
         userRepository.delete(id);
     }
 
-    public User checkIfUserRegistered(){
+    public User checkIfUserRegistered() {
         User user = userRepository.findByEmail(request.getHeader("email"));
-        if(user == null){
+        if (user == null) {
             throw new UnregisteredUserException("User not registered with the system.");
         }
         return user;
     }
 
-    public void validateUser(BindingResult result) {
+    private void validateUser(BindingResult result) {
         if (result.hasErrors()) {
             throw new ValidationException(createErrorMessage(result));
         }
     }
 
-    private String createErrorMessage(BindingResult result){
+    private String createErrorMessage(BindingResult result) {
         StringBuilder errors = new StringBuilder("Errors : ");
         result.getAllErrors().stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)

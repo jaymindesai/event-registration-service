@@ -30,8 +30,7 @@ public class UserController {
     @PostMapping("")
     @ResponseStatus(ACCEPTED)
     public void addUser(@Valid @RequestBody UserDto user, BindingResult result){
-        userService.validateUser(result);
-        userService.addUser(user);
+        userService.addUser(user, result);
     }
 
     @DeleteMapping("{id}")
