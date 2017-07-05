@@ -25,16 +25,16 @@ public class EventService {
     }
 
     @Transactional
-    public EventDto findByCode(String code) {
-        return eventConverter.convertToDto(isValidEvent(code));
+    public EventDto findByCode(String eventCode) {
+        return eventConverter.convertToDto(isValidEvent(eventCode));
     }
 
     @Transactional
-    public EventDto updateSlotCapacity(String code, String slotCode, int capacity) {
-        Event event = isValidEvent(code);
+    public EventDto updateSlotCapacity(String eventCode, String slotCode, int capacity) {
+        Event event = isValidEvent(eventCode);
         event.getVenue().getTimeSlots().stream()
-                .filter(slot -> slot.getSlotCode().equals(slotCode))
-                .forEach(slot -> slot.setCapacity(capacity));
+                .filter(timeSlot -> timeSlot.getSlotCode().equals(slotCode))
+                .forEach(timeSlot -> timeSlot.setCapacity(capacity));
         return eventConverter.convertToDto(eventRepository.save(event));
     }
 
@@ -46,15 +46,19 @@ public class EventService {
     }
 
     @Transactional
-    public void deleteByCode(String code) {
-        Event event = isValidEvent(code);
+    public void deleteByCode(String eventCode) {
+        Event event = isValidEvent(eventCode);
         eventRepository.deleteByCode(event.getCode());
     }
 
-    public Event isValidEvent(String code) {
-        Event event = eventRepository.findByCode(code);
+    public Event event(String eventCode) {
+        return isValidEvent(eventCode);
+    }
+
+    public Event isValidEvent(String eventCode) {
+        Event event = eventRepository.findByCode(eventCode);
         if (event == null) {
-            throw new InvalidEventException("Invalid event code - " + code + ", no such event found.");
+            throw new InvalidEventException("Invalid event eventCode - " + eventCode + ", no such event found!");
         }
         return event;
     }

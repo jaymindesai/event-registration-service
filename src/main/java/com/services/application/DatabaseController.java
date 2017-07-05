@@ -11,9 +11,11 @@ import com.services.domain.event.TimeSlot;
 import com.services.domain.user.Address;
 import com.services.domain.user.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
@@ -25,6 +27,7 @@ import static com.services.domain.Slot.AFTERNOON_SECOND;
 import static com.services.domain.Slot.MORNING_FIRST;
 import static com.services.domain.Slot.MORNING_SECOND;
 import static java.util.Arrays.asList;
+import static org.springframework.http.HttpStatus.ACCEPTED;
 
 @RestController
 @RequestMapping("db")
@@ -45,9 +48,11 @@ public class DatabaseController {
 
     @Transactional
     @PutMapping("populate")
-    public void insertData() {
+    @ResponseStatus(ACCEPTED)
+    public String insertData() {
         insertIntoAllTables();
         insertEvents();
+        return "Database Populated";
     }
 
     private void insertEvents() {
@@ -139,6 +144,7 @@ public class DatabaseController {
         Registration registration = Registration.builder()
                 .event(event)
                 .user(user)
+                .timeSlot(timeSlot1)
                 .build();
 
         registrationRepository.save(registration);

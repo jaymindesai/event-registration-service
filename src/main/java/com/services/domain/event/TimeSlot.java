@@ -31,9 +31,17 @@ public class TimeSlot extends AbstractEntity {
 
     @Column(name = "CAPACITY", nullable = false)
     @Max(value = 50)
-    private Integer capacity;
+    private int capacity;
 
     @ManyToOne(fetch = EAGER, cascade = ALL)
     @JoinColumn(name = "VENUE_ID", nullable = false)
     private Venue venue;
+
+    public boolean isFull(){
+        return this.capacity == 0;
+    }
+
+    public int decrementCapacity() {
+        return this.capacity - 1;
+    }
 }

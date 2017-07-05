@@ -27,8 +27,13 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto find(Integer id) {
+    public UserDto find(int id) {
         return userConverter.convertToDto(userRepository.findOne(id));
+    }
+
+    @Transactional
+    public User user(int id) {
+        return userRepository.findOne(id);
     }
 
     @Transactional
@@ -38,14 +43,14 @@ public class UserService {
     }
 
     @Transactional
-    public void delete(Integer id) {
+    public void delete(int id) {
         userRepository.delete(id);
     }
 
     public User checkIfUserRegistered() {
         User user = userRepository.findByEmail(request.getHeader("email"));
         if (user == null) {
-            throw new UnregisteredUserException("User not registered with the system.");
+            throw new UnregisteredUserException("User not registered with the system!");
         }
         return user;
     }

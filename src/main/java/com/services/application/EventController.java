@@ -35,21 +35,22 @@ public class EventController {
         return eventService.getEvents();
     }
 
-    @GetMapping("{code}")
-    public EventDto getEvent(@PathVariable String code) {
-        return eventService.findByCode(code);
+    @GetMapping("{eventCode}")
+    public EventDto getEvent(@PathVariable String eventCode) {
+        return eventService.findByCode(eventCode);
     }
 
-    @PutMapping("{code}/timeSlots/{slot}/capacity/{capacity}")
-    public EventDto updateSlotCapacity(@PathVariable String code,
-                                       @PathVariable String slot,
-                                       @PathVariable int capacity) {
-        return eventService.updateSlotCapacity(code, slot, capacity);
-    }
-
-    @DeleteMapping("events/{code}")
+    @PutMapping("{eventCode}/timeSlots/{slotCode}/capacity/{capacity}")
     @ResponseStatus(ACCEPTED)
-    public void deleteEvent(@PathVariable String code) {
-        eventService.deleteByCode(code);
+    public EventDto updateSlotCapacity(@PathVariable String eventCode,
+                                       @PathVariable String slotCode,
+                                       @PathVariable int capacity) {
+        return eventService.updateSlotCapacity(eventCode, slotCode, capacity);
+    }
+
+    @DeleteMapping("{eventCode}")
+    @ResponseStatus(ACCEPTED)
+    public void deleteEvent(@PathVariable String eventCode) {
+        eventService.deleteByCode(eventCode);
     }
 }

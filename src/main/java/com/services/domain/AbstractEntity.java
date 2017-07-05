@@ -19,5 +19,5 @@ public class AbstractEntity {
     @GeneratedValue(strategy = AUTO)
     @Setter(value = PRIVATE)
     @Column(name = "ID", nullable = false)
-    private Integer id;
+    private int id;
 }

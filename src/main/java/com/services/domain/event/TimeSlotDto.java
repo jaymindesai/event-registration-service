@@ -33,5 +33,5 @@ public class TimeSlotDto extends AbstractDto {
     @NotNull(message = "Capacity must be defined")
     @Max(value = 50)
     @Valid
-    private Integer capacity;
+    private int capacity;
 }

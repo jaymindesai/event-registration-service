@@ -1,6 +1,7 @@
 package com.services.application.handler;
 
 import com.services.application.handler.exceptions.InvalidEventException;
+import com.services.application.handler.exceptions.EventRegistrationException;
 import com.services.application.handler.exceptions.UnregisteredUserException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,9 +11,7 @@ import javax.validation.ValidationException;
 
 import java.io.IOException;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @ControllerAdvice
 public class ErrorHandler {
@@ -30,6 +29,11 @@ public class ErrorHandler {
     @ExceptionHandler(InvalidEventException.class)
     public void processInvalidEventError(Exception exception, HttpServletResponse response) throws IOException {
         response.sendError(NOT_FOUND.value(), exception.getMessage());
+    }
+
+    @ExceptionHandler(EventRegistrationException.class)
+    public void processRegistrationConflictError(Exception exception, HttpServletResponse response) throws IOException {
+        response.sendError(CONFLICT.value(), exception.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
