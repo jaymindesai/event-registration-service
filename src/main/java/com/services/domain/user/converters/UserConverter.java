@@ -19,6 +19,7 @@ public class UserConverter {
 
     public UserDto convertToDto(User user){
         return UserDto.builder()
+                .id(user.getId())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
@@ -36,5 +37,4 @@ public class UserConverter {
                 .addressDetails(addressConverter.convertToAddress(userDto.getAddressDetails()))
                 .build();
     }
-
 }

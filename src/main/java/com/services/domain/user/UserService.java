@@ -6,6 +6,7 @@ import com.services.exceptions.UnregisteredUserException;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -21,14 +22,16 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void checkIfUserRegistered(){
-        User user = userRepository.findByEmail(request.getHeader("email"));
-        if(user == null){
-            throw new UnregisteredUserException("User not registered");
-        }
+    @Transactional
+    public UserDto find(Integer id){
+        return userConverter.convertToDto(userRepository.findOne(id));
     }
 
-    public UserDto find(String email){
-        return userConverter.convertToDto(userRepository.findByEmail(email));
+    public User checkIfUserRegistered(){
+        User user = userRepository.findByEmail(request.getHeader("email"));
+        if(user == null){
+            throw new UnregisteredUserException("User not registered with the system.");
+        }
+        return user;
     }
 }

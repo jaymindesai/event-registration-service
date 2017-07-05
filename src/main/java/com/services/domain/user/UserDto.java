@@ -14,6 +14,8 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = false)
 public class UserDto extends AbstractDto {
 
+    private Integer id;
+
     @NotNull(message = "First name must be defined")
     @Valid
     private String firstName;

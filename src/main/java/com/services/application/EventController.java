@@ -12,6 +12,7 @@ import static org.springframework.http.HttpStatus.ACCEPTED;
 
 @Slf4j
 @RestController
+@RequestMapping("events")
 public class EventController {
 
     private final EventService eventService;
@@ -21,24 +22,24 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @GetMapping("events")
+    @GetMapping("")
     public List<EventDto> getEvents(){
         return eventService.getEvents();
     }
 
-    @GetMapping("event/{code}")
+    @GetMapping("{code}")
     public EventDto getEvent(@PathVariable String code) {
         return eventService.findByCode(code);
     }
 
-    @PutMapping("event/{code}/timeSlots/{slot}/capacity/{capacity}")
+    @PutMapping("{code}/timeSlots/{slot}/capacity/{capacity}")
     public EventDto updateSlotCapacity(@PathVariable String code,
                                        @PathVariable String slot,
                                        @PathVariable int capacity) {
         return eventService.updateSlotCapacity(code, slot, capacity);
     }
 
-    @DeleteMapping("event/{code}")
+    @DeleteMapping("events/{code}")
     @ResponseStatus(ACCEPTED)
     public void deleteEvent(@PathVariable String code) {
         eventService.deleteByCode(code);

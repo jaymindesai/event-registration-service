@@ -3,11 +3,10 @@ package com.services.application;
 import com.services.domain.user.UserDto;
 import com.services.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("users")
 public class UserController {
 
     private final UserService userService;
@@ -17,12 +16,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("user")
-    public UserDto getUser(@RequestParam(value = "email", required = true) String email){
-        return userService.find(email);
+    @GetMapping("{id}")
+    public UserDto getUser(@PathVariable Integer id){
+        return userService.find(id);
     }
 
-    private void isUserRegistered(){
-        userService.checkIfUserRegistered();
-    }
 }
