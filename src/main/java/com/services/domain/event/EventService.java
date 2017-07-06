@@ -1,5 +1,6 @@
 package com.services.domain.event;
 
+import com.services.application.handler.exceptions.NotFoundException;
 import com.services.domain.event.converters.EventConverter;
 import com.services.application.handler.exceptions.InvalidEventException;
 import com.services.infrastructure.EventRepository;
@@ -8,10 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.StreamSupport.stream;
-
 @Service
 public class EventService {
 
@@ -40,9 +41,13 @@ public class EventService {
 
     @Transactional
     public List<EventDto> getEvents() {
-        return stream(eventRepository.findAll().spliterator(), false)
+        List<EventDto> events = stream(eventRepository.findAll().spliterator(), false)
                 .map(eventConverter::convertToDto)
                 .collect(toList());
+        if(events.isEmpty()){
+            throw new NotFoundException("No Events Found!");
+        }
+        return events;
     }
 
     @Transactional
@@ -51,15 +56,13 @@ public class EventService {
         eventRepository.deleteByCode(event.getCode());
     }
 
+    @Transactional
     public Event event(String eventCode) {
         return isValidEvent(eventCode);
     }
 
     public Event isValidEvent(String eventCode) {
-        Event event = eventRepository.findByCode(eventCode);
-        if (event == null) {
-            throw new InvalidEventException("Invalid event eventCode - " + eventCode + ", no such event found!");
-        }
-        return event;
+        return eventRepository.findByCode(eventCode)
+                .orElseThrow(() -> new InvalidEventException("Invalid event eventCode - " + eventCode + ", no such event found!"));
     }
 }

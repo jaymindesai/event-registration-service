@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 
 import javax.validation.ValidationException;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -28,12 +29,14 @@ public class UserService {
 
     @Transactional
     public UserDto find(int id) {
-        return userConverter.convertToDto(userRepository.findOne(id));
+        return userConverter.convertToDto(Optional.ofNullable(userRepository.findOne(id))
+                .orElseThrow(() -> new UnregisteredUserException("User not registered with the system!")));
     }
 
     @Transactional
     public User user(int id) {
-        return userRepository.findOne(id);
+        return Optional.ofNullable(userRepository.findOne(id))
+                .orElseThrow(() -> new UnregisteredUserException("User not registered with the system!"));
     }
 
     @Transactional
@@ -48,11 +51,8 @@ public class UserService {
     }
 
     public User checkIfUserRegistered() {
-        User user = userRepository.findByEmail(request.getHeader("email"));
-        if (user == null) {
-            throw new UnregisteredUserException("User not registered with the system!");
-        }
-        return user;
+        return userRepository.findByEmail(request.getHeader("email"))
+                .orElseThrow(() -> new UnregisteredUserException("User not registered with the system!"));
     }
 
     private void validateUser(BindingResult result) {

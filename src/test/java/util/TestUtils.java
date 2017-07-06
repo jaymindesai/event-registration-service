@@ -10,11 +10,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 
 import java.time.LocalDate;
+import java.util.stream.Stream;
 
 import static com.services.domain.City.KOLKATA;
 import static com.services.domain.Slot.MORNING_SECOND;
 import static java.util.Arrays.asList;
-import static java.util.stream.Stream.of;
 
 @SuppressWarnings("ALL")
 public class TestUtils {
@@ -47,7 +47,7 @@ public class TestUtils {
     }
 
     public static Event someEventWithCustomSlot(String eventCode, String slotCode, int capacity){
-        return of(someEvent(eventCode))
+        return Stream.of(someEvent(eventCode))
                 .peek(event -> {
                     event.getVenue().getTimeSlots().get(0).setSlotCode(slotCode);
                     event.getVenue().getTimeSlots().get(0).setCapacity(capacity);})
@@ -76,7 +76,7 @@ public class TestUtils {
     }
 
     public static User someUserWithEmail(String email) {
-        return of(someUser())
+        return Stream.of(someUser())
                 .peek(user -> user.setEmail(email))
                 .findFirst()
                 .get();

@@ -87,6 +87,6 @@ public class EventControllerIT extends AbstractBaseIT {
     }
 
     private Event getEvent(String eventCode){
-        return eventRepository.findByCode(eventCode);
+        return eventRepository.findByCode(eventCode).get();
     }
 }

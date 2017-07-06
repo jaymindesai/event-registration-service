@@ -1,6 +1,7 @@
 package com.services.domain.registration;
 
 import com.services.application.handler.exceptions.EventRegistrationException;
+import com.services.application.handler.exceptions.NotFoundException;
 import com.services.domain.event.Event;
 import com.services.domain.event.EventService;
 import com.services.domain.event.TimeSlot;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.StreamSupport.stream;
@@ -39,9 +39,13 @@ public class RegistrationService {
 
     @Transactional
     public List<RegistrationDto> getRegistrations() {
-        return stream(registrationRepository.findAll().spliterator(), false)
+        List<RegistrationDto> registrations = stream(registrationRepository.findAll().spliterator(), false)
                 .map(registrationConverter::convertToDto)
                 .collect(toList());
+        if(registrations.isEmpty()){
+            throw new NotFoundException("No Registraions Found!");
+        }
+        return registrations;
     }
 
     @Transactional
@@ -58,7 +62,7 @@ public class RegistrationService {
     }
 
     private void checkIfRegistrationAlreadyExists(Event event, User user) {
-        if (registrationRepository.findByEventAndUser(event, user) != null) {
+        if (registrationRepository.findByEventAndUser(event, user).isPresent()) {
             throw new EventRegistrationException("Registration for event " + event.getCode() + " already exists!");
         }
     }

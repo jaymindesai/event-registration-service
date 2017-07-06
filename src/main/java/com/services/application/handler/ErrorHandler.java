@@ -2,6 +2,7 @@ package com.services.application.handler;
 
 import com.services.application.handler.exceptions.InvalidEventException;
 import com.services.application.handler.exceptions.EventRegistrationException;
+import com.services.application.handler.exceptions.NotFoundException;
 import com.services.application.handler.exceptions.UnregisteredUserException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,6 +29,11 @@ public class ErrorHandler {
 
     @ExceptionHandler(InvalidEventException.class)
     public void processInvalidEventError(Exception exception, HttpServletResponse response) throws IOException {
+        response.sendError(NOT_FOUND.value(), exception.getMessage());
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public void processNoRegistrationsFoundError(Exception exception, HttpServletResponse response) throws IOException {
         response.sendError(NOT_FOUND.value(), exception.getMessage());
     }
 
