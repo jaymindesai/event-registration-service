@@ -2,14 +2,12 @@ package com.services.domain.event;
 
 import com.services.application.handler.exceptions.NotFoundException;
 import com.services.domain.event.converters.EventConverter;
-import com.services.application.handler.exceptions.InvalidEventException;
 import com.services.infrastructure.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.StreamSupport.stream;
@@ -63,6 +61,6 @@ public class EventService {
 
     public Event isValidEvent(String eventCode) {
         return eventRepository.findByCode(eventCode)
-                .orElseThrow(() -> new InvalidEventException("Invalid event eventCode - " + eventCode + ", no such event found!"));
+                .orElseThrow(() -> new NotFoundException("Invalid event eventCode - " + eventCode + ", no such event found!"));
     }
 }

@@ -1,7 +1,7 @@
 package com.services.domain.user;
 
+import com.services.application.handler.exceptions.NotFoundException;
 import com.services.domain.user.converters.UserConverter;
-import com.services.application.handler.exceptions.UnregisteredUserException;
 import com.services.infrastructure.UserRepository;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +30,13 @@ public class UserService {
     @Transactional
     public UserDto find(int id) {
         return userConverter.convertToDto(Optional.ofNullable(userRepository.findOne(id))
-                .orElseThrow(() -> new UnregisteredUserException("User not registered with the system!")));
+                .orElseThrow(() -> new NotFoundException("User not registered with the system!")));
     }
 
     @Transactional
     public User user(int id) {
         return Optional.ofNullable(userRepository.findOne(id))
-                .orElseThrow(() -> new UnregisteredUserException("User not registered with the system!"));
+                .orElseThrow(() -> new NotFoundException("User not registered with the system!"));
     }
 
     @Transactional
@@ -52,7 +52,7 @@ public class UserService {
 
     public User checkIfUserRegistered() {
         return userRepository.findByEmail(request.getHeader("email"))
-                .orElseThrow(() -> new UnregisteredUserException("User not registered with the system!"));
+                .orElseThrow(() -> new NotFoundException("User not registered with the system!"));
     }
 
     private void validateUser(BindingResult result) {
