@@ -24,3 +24,26 @@ spring:
       fail-on-empty-beans: false
       indent-output: true
       write-dates-as-timestamps: false
+
+---
+
+spring:
+  profiles: integration
+
+  datasource:
+    url: jdbc:h2:file:~/test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+      hibernate:
+        ddl-auto: create
+      properties:
+        hibernate:
+         defauls-schema: public
+         dialect:
+
+  jackson:
+      deserialization:
+        accept-single-value-as-array: true
