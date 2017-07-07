@@ -1,7 +1,7 @@
-package com.services.application.handler;
+package com.services.handler;
 
-import com.services.application.handler.exceptions.EventRegistrationException;
-import com.services.application.handler.exceptions.NotFoundException;
+import com.services.handler.exceptions.EventRegistrationException;
+import com.services.handler.exceptions.NotFoundException;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;

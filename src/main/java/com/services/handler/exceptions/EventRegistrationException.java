@@ -1,4 +1,4 @@
-package com.services.application.handler.exceptions;
+package com.services.handler.exceptions;
 
 public class EventRegistrationException extends RuntimeException {
 

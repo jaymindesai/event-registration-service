@@ -19,13 +19,13 @@ public class EmailController {
     private final EmailHelper emailHelper;
 
     @Autowired
-    public EmailController(EmailHelper emailHelper, JavaMailSender mailSender){
+    public EmailController(JavaMailSender mailSender, EmailHelper emailHelper){
         this.mailSender = mailSender;
         this.emailHelper = emailHelper;
     }
 
     /*
-     * This functionality in only available for application hosted locally for now.
+     * This functionality in only available if application is hosted locally for now.
      */
     @PostMapping("registrations/event/{eventCode}/slot/{slotCode}/user/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
