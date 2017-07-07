@@ -6,7 +6,7 @@
         <h4>You have opted to register for ${eventName}.</h4>
         <h4>Event details:</h4>
         <h4>Event date: ${date}</h4>
-        <h4>Event venue: ${venue}</h4>
+        <h4>Event venue: ${venue}, ${city}</h4>
         <h4>Event start time: ${startTime}</h4>
         <h4>Event end time: ${endTime}</h4>
         <h4>Please click on the below link to confirm your registration.</h4>

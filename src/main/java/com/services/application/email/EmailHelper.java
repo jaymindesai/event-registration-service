@@ -46,6 +46,7 @@ public class EmailHelper {
         model.put("userName", user.getFirstName());
         model.put("eventName", event.getName());
         model.put("venue", event.getVenue().getName());
+        model.put("city", event.getVenue().getCity());
         model.put("date", event.getDate().toString());
         model.put("startTime", timeSlot.getStartTime().toString());
         model.put("endTime", timeSlot.getEndTime().toString());
