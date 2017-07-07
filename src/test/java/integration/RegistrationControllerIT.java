@@ -1,11 +1,11 @@
 package integration;
 
-import com.services.domain.registration.RegistrationDto;
-import com.services.domain.user.User;
-import com.services.infrastructure.EventRepository;
-import com.services.infrastructure.RegistrationRepository;
-import com.services.infrastructure.UserRepository;
-import integration.config.AbstractBaseIT;
+import com.ers.domain.registration.RegistrationDto;
+import com.ers.domain.user.User;
+import com.ers.infrastructure.EventRepository;
+import com.ers.infrastructure.RegistrationRepository;
+import com.ers.infrastructure.UserRepository;
+import config.AbstractBaseIT;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;

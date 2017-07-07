@@ -1,20 +1,20 @@
 package util;
 
-import com.services.domain.event.Event;
-import com.services.domain.event.TimeSlot;
-import com.services.domain.event.Venue;
-import com.services.domain.registration.Registration;
-import com.services.domain.user.Address;
-import com.services.domain.user.Contact;
-import com.services.domain.user.User;
+import com.ers.domain.event.Event;
+import com.ers.domain.event.TimeSlot;
+import com.ers.domain.event.Venue;
+import com.ers.domain.registration.Registration;
+import com.ers.domain.user.Address;
+import com.ers.domain.user.Contact;
+import com.ers.domain.user.User;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
-import static com.services.domain.City.KOLKATA;
-import static com.services.domain.Slot.MORNING_SECOND;
+import static com.ers.domain.City.KOLKATA;
+import static com.ers.domain.Slot.MORNING_SECOND;
 import static java.util.Arrays.asList;
 
 @SuppressWarnings("ALL")

@@ -1,16 +1,16 @@
 package util;
 
-import com.services.Application;
-import com.services.domain.event.Event;
-import com.services.domain.event.TimeSlot;
-import com.services.domain.event.Venue;
-import com.services.domain.registration.Registration;
-import com.services.domain.user.Address;
-import com.services.domain.user.Contact;
-import com.services.domain.user.User;
-import com.services.infrastructure.EventRepository;
-import com.services.infrastructure.RegistrationRepository;
-import com.services.infrastructure.UserRepository;
+import com.ers.Application;
+import com.ers.domain.event.Event;
+import com.ers.domain.event.TimeSlot;
+import com.ers.domain.event.Venue;
+import com.ers.domain.registration.Registration;
+import com.ers.domain.user.Address;
+import com.ers.domain.user.Contact;
+import com.ers.domain.user.User;
+import com.ers.infrastructure.EventRepository;
+import com.ers.infrastructure.RegistrationRepository;
+import com.ers.infrastructure.UserRepository;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,8 +27,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 
-import static com.services.domain.City.*;
-import static com.services.domain.Slot.*;
+import static com.ers.domain.City.*;
+import static com.ers.domain.Slot.*;
 import static java.util.Arrays.asList;
 
 @SuppressWarnings("ALL")

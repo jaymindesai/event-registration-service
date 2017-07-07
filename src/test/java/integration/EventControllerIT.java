@@ -1,10 +1,10 @@
 package integration;
 
-import com.services.domain.event.Event;
-import com.services.domain.event.EventDto;
-import com.services.infrastructure.EventRepository;
-import com.services.infrastructure.UserRepository;
-import integration.config.AbstractBaseIT;
+import com.ers.domain.event.Event;
+import com.ers.domain.event.EventDto;
+import com.ers.infrastructure.EventRepository;
+import com.ers.infrastructure.UserRepository;
+import config.AbstractBaseIT;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;

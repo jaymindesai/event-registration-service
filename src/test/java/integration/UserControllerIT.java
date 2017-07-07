@@ -1,6 +1,6 @@
 package integration;
 
-import integration.config.AbstractBaseIT;
+import config.AbstractBaseIT;
 
 public class UserControllerIT extends AbstractBaseIT {
 
