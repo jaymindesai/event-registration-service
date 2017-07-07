@@ -1,4 +1,4 @@
-package config;
+package integration;
 
 import com.ers.Application;
 import org.junit.runner.RunWith;
@@ -14,7 +14,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @ActiveProfiles(profiles = "integration")
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = Application.class)
-public class AbstractBaseIT {
+public abstract class BaseIT {
 
     @Autowired
     protected TestRestTemplate restTemplate;

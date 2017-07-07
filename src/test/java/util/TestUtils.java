@@ -1,8 +1,12 @@
 package util;
 
 import com.ers.domain.event.Event;
+import com.ers.domain.event.EventDto;
 import com.ers.domain.event.TimeSlot;
 import com.ers.domain.event.Venue;
+import com.ers.domain.event.converters.EventConverter;
+import com.ers.domain.event.converters.TimeSlotConverter;
+import com.ers.domain.event.converters.VenueConverter;
 import com.ers.domain.registration.Registration;
 import com.ers.domain.user.Address;
 import com.ers.domain.user.Contact;
@@ -20,6 +24,10 @@ import static java.util.Arrays.asList;
 @SuppressWarnings("ALL")
 public class TestUtils {
 
+    private static TimeSlotConverter timeSlotConverter = new TimeSlotConverter();
+    private static VenueConverter venueConverter = new VenueConverter(timeSlotConverter);
+    private static EventConverter eventConverter = new EventConverter(venueConverter);
+
     public static HttpEntity<String> createEntity(String email) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("email", email);
@@ -35,6 +43,14 @@ public class TestUtils {
                 .date(LocalDate.of(2017, 10, 15))
                 .venue(venue)
                 .build();
+    }
+
+    public static EventDto someEventDto(String eventCode){
+        return eventConverter.convertToDto(someEvent(eventCode));
+    }
+
+    public static EventDto someEventDtoWithCustomSlot(String eventCode, String slotCode, int capacity){
+        return eventConverter.convertToDto(someEventWithCustomSlot(eventCode, slotCode, capacity));
     }
 
     private static TimeSlot someTimeSlot(Venue venue) {

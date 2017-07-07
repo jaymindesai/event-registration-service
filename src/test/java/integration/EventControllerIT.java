@@ -4,7 +4,6 @@ import com.ers.domain.event.Event;
 import com.ers.domain.event.EventDto;
 import com.ers.infrastructure.EventRepository;
 import com.ers.infrastructure.UserRepository;
-import config.AbstractBaseIT;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -21,7 +20,7 @@ import static org.springframework.http.HttpStatus.*;
 import static util.TestUtils.*;
 
 @SuppressWarnings("ALL")
-public class EventControllerIT extends AbstractBaseIT {
+public class EventControllerIT extends BaseIT {
 
     @Autowired
     private UserRepository userRepository;

@@ -5,7 +5,6 @@ import com.ers.domain.user.User;
 import com.ers.infrastructure.EventRepository;
 import com.ers.infrastructure.RegistrationRepository;
 import com.ers.infrastructure.UserRepository;
-import config.AbstractBaseIT;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -20,7 +19,7 @@ import static org.springframework.http.HttpStatus.*;
 import static util.TestUtils.*;
 
 @SuppressWarnings("ALL")
-public class RegistrationControllerIT extends AbstractBaseIT {
+public class RegistrationControllerIT extends BaseIT {
 
     @Autowired
     private UserRepository userRepository;
