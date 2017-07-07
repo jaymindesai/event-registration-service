@@ -25,7 +25,7 @@ public class EmailController {
     }
 
     /*
-     * This functionality in only available if application is hosted locally for now.
+     * This functionality is only available if application is hosted locally for now.
      */
     @PostMapping("registrations/event/{eventCode}/slot/{slotCode}/user/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)

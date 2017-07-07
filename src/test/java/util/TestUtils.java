@@ -34,9 +34,9 @@ public class TestUtils {
         return new HttpEntity<>(httpHeaders);
     }
 
-    public static Event someEvent(String eventCode) {
-        Venue venue = someVenue();
-        venue.setTimeSlots(asList(someTimeSlot(venue)));
+    public static Event anEvent(String eventCode) {
+        Venue venue = aVenue();
+        venue.setTimeSlots(asList(aTimeSlot(venue)));
         return Event.builder()
                 .code(eventCode)
                 .name("Some Name")
@@ -45,15 +45,15 @@ public class TestUtils {
                 .build();
     }
 
-    public static EventDto someEventDto(String eventCode){
-        return eventConverter.convertToDto(someEvent(eventCode));
+    public static EventDto anEventDto(String eventCode){
+        return eventConverter.convertToDto(anEvent(eventCode));
     }
 
-    public static EventDto someEventDtoWithCustomSlot(String eventCode, String slotCode, int capacity){
-        return eventConverter.convertToDto(someEventWithCustomSlot(eventCode, slotCode, capacity));
+    public static EventDto anEventDtoWithCustomSlot(String eventCode, String slotCode, int capacity){
+        return eventConverter.convertToDto(anEventWithCustomSlot(eventCode, slotCode, capacity));
     }
 
-    private static TimeSlot someTimeSlot(Venue venue) {
+    private static TimeSlot aTimeSlot(Venue venue) {
         return TimeSlot.builder()
                 .slotCode(MORNING_SECOND.getCode())
                 .startTime(MORNING_SECOND.getStartTime())
@@ -63,15 +63,15 @@ public class TestUtils {
                 .build();
     }
 
-    private static Venue someVenue() {
+    private static Venue aVenue() {
         return Venue.builder()
                 .name("Some Venue")
                 .city(KOLKATA.getValue())
                 .build();
     }
 
-    public static Event someEventWithCustomSlot(String eventCode, String slotCode, int capacity){
-        return Stream.of(someEvent(eventCode))
+    public static Event anEventWithCustomSlot(String eventCode, String slotCode, int capacity){
+        return Stream.of(anEvent(eventCode))
                 .peek(event -> {
                     event.getVenue().getTimeSlots().get(0).setSlotCode(slotCode);
                     event.getVenue().getTimeSlots().get(0).setCapacity(capacity);})
@@ -79,7 +79,7 @@ public class TestUtils {
                 .get();
     }
 
-    public static User someUser() {
+    public static User sUser() {
         return User.builder()
                 .firstName("First")
                 .lastName("Last")
@@ -99,18 +99,18 @@ public class TestUtils {
                 .build();
     }
 
-    public static User someUserWithEmail(String email) {
-        return Stream.of(someUser())
+    public static User aUserWithEmail(String email) {
+        return Stream.of(sUser())
                 .peek(user -> user.setEmail(email))
                 .findFirst()
                 .get();
     }
 
-    public static Registration someRegistration() {
+    public static Registration aRegistration() {
         return Registration.builder()
-                .user(someUser())
-                .event(someEvent("CODE549"))
-                .timeSlot(someTimeSlot(someVenue()))
+                .user(sUser())
+                .event(anEvent("CODE549"))
+                .timeSlot(aTimeSlot(aVenue()))
                 .build();
     }
 }

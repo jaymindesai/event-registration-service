@@ -11,8 +11,8 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
-import static util.TestUtils.someEventDto;
-import static util.TestUtils.someEventDtoWithCustomSlot;
+import static util.TestUtils.anEventDto;
+import static util.TestUtils.anEventDtoWithCustomSlot;
 
 @SuppressWarnings("ALL")
 public class EventControllerTest {
@@ -66,10 +66,10 @@ public class EventControllerTest {
 
     private EventController createController() {
         //given
-        when(eventService.getEvents()).thenReturn(asList(someEventDto(EVENT_CODE)));
-        when(eventService.findByCode(any(String.class))).thenReturn(someEventDto(EVENT_CODE));
+        when(eventService.getEvents()).thenReturn(asList(anEventDto(EVENT_CODE)));
+        when(eventService.findByCode(any(String.class))).thenReturn(anEventDto(EVENT_CODE));
         when(eventService.updateSlotCapacity(any(String.class), any(String.class), any(Integer.class)))
-                .thenReturn(someEventDtoWithCustomSlot(EVENT_CODE, SLOT_CODE, 20));
+                .thenReturn(anEventDtoWithCustomSlot(EVENT_CODE, SLOT_CODE, 20));
         return new EventController(eventService, userService);
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static util.TestUtils.someEvent;
+import static util.TestUtils.anEvent;
 
 @SuppressWarnings("ALL")
 @RunWith(SpringRunner.class)
@@ -30,7 +30,7 @@ public class EventRepositoryTest {
     @Test
     public void shouldFindByCode(){
         //given
-        entityManager.persist(someEvent(EVENT_CODE));
+        entityManager.persist(anEvent(EVENT_CODE));
         //when
         Optional<Event> event = repository.findByCode(EVENT_CODE);
         //then
@@ -41,8 +41,8 @@ public class EventRepositoryTest {
     @Test
     public void shouldDeleteByCode(){
         //given
-        entityManager.persist(someEvent(EVENT_CODE));
-        entityManager.persist(someEvent(OTHER_EVENT_CODE));
+        entityManager.persist(anEvent(EVENT_CODE));
+        entityManager.persist(anEvent(OTHER_EVENT_CODE));
         //when
         repository.deleteByCode(EVENT_CODE);
         //then

@@ -68,7 +68,7 @@ public class RegistrationControllerIT extends AbstractBaseIT {
     }
 
     private void insertUser(String email){
-        userRepository.save(someUserWithEmail(email));
+        userRepository.save(aUserWithEmail(email));
     }
 
     private User getUserByEmail(String email){
@@ -76,10 +76,10 @@ public class RegistrationControllerIT extends AbstractBaseIT {
     }
 
     private void insertEventWithCustomSlot(String eventCode, String slotCode, int capacity){
-        eventRepository.save(someEventWithCustomSlot(eventCode, slotCode, capacity));
+        eventRepository.save(anEventWithCustomSlot(eventCode, slotCode, capacity));
     }
 
     private void insertRegistration() {
-        registrationRepository.save(someRegistration());
+        registrationRepository.save(aRegistration());
     }
 }

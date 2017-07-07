@@ -61,6 +61,7 @@ public class EmailHelper {
 
     @SuppressWarnings("ALL")
     private String constructUrl(String eventCode, String slotCode, int id) {
+        //TODO: URL needs to be encrypted. Figure out a way to decrypt it!
         return new StringBuilder("http://localhost:8090/api/registrations")
                 .append("/event/").append(eventCode)
                 .append("/slot/").append(slotCode)

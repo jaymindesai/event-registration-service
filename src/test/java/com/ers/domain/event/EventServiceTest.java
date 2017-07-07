@@ -14,8 +14,8 @@ import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
-import static util.TestUtils.someEvent;
-import static util.TestUtils.someEventDto;
+import static util.TestUtils.anEvent;
+import static util.TestUtils.anEventDto;
 
 @SuppressWarnings("ALL")
 public class EventServiceTest {
@@ -36,7 +36,7 @@ public class EventServiceTest {
         EventDto event = service.findByCode(EVENT_CODE);
         //then
         verify(eventRepository).findByCode(EVENT_CODE);
-        verify(eventConverter).convertToDto(someEvent(EVENT_CODE));
+        verify(eventConverter).convertToDto(anEvent(EVENT_CODE));
         assertThat(event.getCode()).isEqualTo(EVENT_CODE);
     }
 
@@ -100,7 +100,7 @@ public class EventServiceTest {
         //when
         EventDto event = service.updateSlotCapacity(EVENT_CODE, SLOT_CODE, 20);
         //then
-        verify(eventRepository).save(someEvent(EVENT_CODE));
+        verify(eventRepository).save(anEvent(EVENT_CODE));
     }
 
     @Test
@@ -113,8 +113,8 @@ public class EventServiceTest {
 
     private EventService createService() {
         //given
-        Event event = someEvent(EVENT_CODE);
-        EventDto eventDto = someEventDto(EVENT_CODE);
+        Event event = anEvent(EVENT_CODE);
+        EventDto eventDto = anEventDto(EVENT_CODE);
         when(eventConverter.convertToDto(event)).thenReturn(eventDto);
         when(eventRepository.findByCode(EVENT_CODE)).thenReturn(Optional.ofNullable(event));
         when(eventRepository.findAll()).thenReturn(asList(event));

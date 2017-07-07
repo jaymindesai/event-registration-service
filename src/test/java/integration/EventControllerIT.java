@@ -85,15 +85,15 @@ public class EventControllerIT extends AbstractBaseIT {
     }
 
     private void insertUser(String email){
-        userRepository.save(someUserWithEmail(email));
+        userRepository.save(aUserWithEmail(email));
     }
 
     private void insertEvent(String eventCode){
-        eventRepository.save(someEvent(eventCode));
+        eventRepository.save(anEvent(eventCode));
     }
 
     private void insertEventWithCustomSlot(String eventCode, String slotCode, int capacity){
-        eventRepository.save(someEventWithCustomSlot(eventCode, slotCode, capacity));
+        eventRepository.save(anEventWithCustomSlot(eventCode, slotCode, capacity));
     }
 
     private Optional<Event> getEvent(String eventCode){
