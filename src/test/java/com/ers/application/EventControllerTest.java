@@ -20,35 +20,38 @@ public class EventControllerTest {
     EventService eventService = mock(EventService.class);
     UserService userService = mock(UserService.class);
 
-    EventController classUnderTest = createController();
+    EventController controller = createController();
+
+    private static final String EVENT_CODE = "CODE1001";
+    private static final String SLOT_CODE = "SLOT1001";
 
     @Test
     public void shouldGetAllEvents() {
         //when
-        List<EventDto> events = classUnderTest.getEvents();
+        List<EventDto> events = controller.getEvents();
         //then
         verify(userService).checkIfUserRegistered();
         verify(eventService).getEvents();
-        assertThat(events.get(0).getCode()).isEqualTo("CODE1001");
+        assertThat(events.get(0).getCode()).isEqualTo(EVENT_CODE);
     }
 
     @Test
     public void shouldGetEvent() {
         //when
-        EventDto event = classUnderTest.getEvent("CODE1001");
+        EventDto event = controller.getEvent(EVENT_CODE);
         //then
-        verify(eventService).findByCode("CODE1001");
-        assertThat(event.getCode()).isEqualTo("CODE1001");
+        verify(eventService).findByCode(EVENT_CODE);
+        assertThat(event.getCode()).isEqualTo(EVENT_CODE);
     }
 
     @Test
     public void shouldUpdateSlotCapacity() {
         //when
-        EventDto event = classUnderTest.updateSlotCapacity("CODE1001", "SLOT1001", 20);
+        EventDto event = controller.updateSlotCapacity(EVENT_CODE, SLOT_CODE, 20);
         //then
-        verify(eventService).updateSlotCapacity("CODE1001", "SLOT1001", 20);
+        verify(eventService).updateSlotCapacity(EVENT_CODE, SLOT_CODE, 20);
         assertThat(event.getVenue().getTimeSlots().stream()
-                .filter(timeSlot -> timeSlot.getSlotCode().equals("SLOT1001"))
+                .filter(timeSlot -> timeSlot.getSlotCode().equals(SLOT_CODE))
                 .findFirst().get()
                 .getCapacity()).isEqualTo(20);
     }
@@ -56,17 +59,17 @@ public class EventControllerTest {
     @Test
     public void shouldDeleteEvent(){
         //when
-        classUnderTest.deleteEvent("CODE1001");
+        controller.deleteEvent(EVENT_CODE);
         //then
-        verify(eventService).deleteByCode("CODE1001");
+        verify(eventService).deleteByCode(EVENT_CODE);
     }
 
     private EventController createController() {
         //given
-        when(eventService.getEvents()).thenReturn(asList(someEventDto("CODE1001")));
-        when(eventService.findByCode(any(String.class))).thenReturn(someEventDto("CODE1001"));
+        when(eventService.getEvents()).thenReturn(asList(someEventDto(EVENT_CODE)));
+        when(eventService.findByCode(any(String.class))).thenReturn(someEventDto(EVENT_CODE));
         when(eventService.updateSlotCapacity(any(String.class), any(String.class), any(Integer.class)))
-                .thenReturn(someEventDtoWithCustomSlot("CODE1001", "SLOT1001", 20));
+                .thenReturn(someEventDtoWithCustomSlot(EVENT_CODE, SLOT_CODE, 20));
         return new EventController(eventService, userService);
     }
 }
