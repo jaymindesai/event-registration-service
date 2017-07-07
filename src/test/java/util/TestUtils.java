@@ -3,6 +3,7 @@ package util;
 import com.services.domain.event.Event;
 import com.services.domain.event.TimeSlot;
 import com.services.domain.event.Venue;
+import com.services.domain.registration.Registration;
 import com.services.domain.user.Address;
 import com.services.domain.user.Contact;
 import com.services.domain.user.User;
@@ -26,23 +27,30 @@ public class TestUtils {
     }
 
     public static Event someEvent(String eventCode) {
-        Venue venue = Venue.builder()
-                .name("Some Venue")
-                .city(KOLKATA.getValue())
+        Venue venue = someVenue();
+        venue.setTimeSlots(asList(someTimeSlot(venue)));
+        return Event.builder()
+                .code(eventCode)
+                .name("Some Name")
+                .date(LocalDate.of(2017, 10, 15))
+                .venue(venue)
                 .build();
-        TimeSlot timeSlot1 = TimeSlot.builder()
+    }
+
+    private static TimeSlot someTimeSlot(Venue venue) {
+        return TimeSlot.builder()
                 .slotCode(MORNING_SECOND.getCode())
                 .startTime(MORNING_SECOND.getStartTime())
                 .endTime(MORNING_SECOND.getEndTime())
                 .capacity(40)
                 .venue(venue)
                 .build();
-        venue.setTimeSlots(asList(timeSlot1));
-        return Event.builder()
-                .code(eventCode)
-                .name("Some Name")
-                .date(LocalDate.of(2017, 10, 15))
-                .venue(venue)
+    }
+
+    private static Venue someVenue() {
+        return Venue.builder()
+                .name("Some Venue")
+                .city(KOLKATA.getValue())
                 .build();
     }
 
@@ -80,5 +88,13 @@ public class TestUtils {
                 .peek(user -> user.setEmail(email))
                 .findFirst()
                 .get();
+    }
+
+    public static Registration someRegistration() {
+        return Registration.builder()
+                .user(someUser())
+                .event(someEvent("CODE549"))
+                .timeSlot(someTimeSlot(someVenue()))
+                .build();
     }
 }

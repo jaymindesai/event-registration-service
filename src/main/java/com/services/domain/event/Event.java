@@ -3,12 +3,13 @@ package com.services.domain.event;
 import com.services.domain.AbstractEntity;
 import lombok.*;
 
-import javax.persistence.*;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import java.time.LocalDate;
 
-import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.CascadeType.*;
 
 @Data
 @Builder
@@ -27,7 +28,7 @@ public class Event extends AbstractEntity {
     @Column(name = "EVENT_DATE", nullable = false)
     private LocalDate date;
 
-    @OneToOne(fetch = EAGER, cascade = ALL)
+    @OneToOne(cascade = {PERSIST, MERGE, REFRESH})
     @JoinColumn(name = "VENUE_ID", nullable = false)
     private Venue venue;
 }

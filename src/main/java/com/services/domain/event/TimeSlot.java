@@ -3,13 +3,14 @@ package com.services.domain.event;
 import com.services.domain.AbstractEntity;
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
-
 import java.time.LocalTime;
 
-import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.CascadeType.*;
 
 @Data
 @ToString(exclude = "venue")
@@ -33,7 +34,7 @@ public class TimeSlot extends AbstractEntity {
     @Max(value = 50)
     private int capacity;
 
-    @ManyToOne(fetch = EAGER, cascade = ALL)
+    @ManyToOne(cascade = {PERSIST, MERGE, REFRESH})
     @JoinColumn(name = "VENUE_ID", nullable = false)
     private Venue venue;
 

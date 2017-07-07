@@ -8,16 +8,16 @@ import integration.config.AbstractBaseIT;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpEntity.EMPTY;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.PUT;
-import static org.springframework.http.HttpStatus.ACCEPTED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 import static util.TestUtils.*;
 
 @SuppressWarnings("ALL")
@@ -33,19 +33,30 @@ public class EventControllerIT extends AbstractBaseIT {
     public void shouldGetAllEvents(){
         //given
         final String email = "abc@xyz.com";
-        addUser(email); // Register a user so that header check passes. Unregistered user should not have access to events.
-        addEvent("CODE001");
+        insertUser(email); // Register a user so that header check passes. Unregistered user should not have access to events.
+        insertEvent("CODE001");
         //when
         ResponseEntity<List<EventDto>> responseEntity = restTemplate.exchange("/events", GET, createEntity(email), new ParameterizedTypeReference<List<EventDto>>(){});
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(OK);
-        assertThat(responseEntity.getBody().size()).isNotZero();
+        assertThat(responseEntity.getBody().get(0).getCode()).isNotNull();
+    }
+
+    @Test
+    public void shouldNotGetEventsIfUserUnregistered(){
+        //given
+        insertEvent("CODE055");
+        //when
+        ResponseEntity<List<EventDto>> responseEntity = restTemplate.exchange("/events", GET, EMPTY, new ParameterizedTypeReference<List<EventDto>>(){});
+        //then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(NOT_FOUND);
+        assertThat(responseEntity.getBody().get(0).getCode()).isNull();
     }
 
     @Test
     public void shouldGetEvent(){
         //given
-        addEvent("CODE002");
+        insertEvent("CODE002");
         //when
         ResponseEntity<EventDto> responseEntity = restTemplate.getForEntity("/events/CODE002", EventDto.class);
         //then
@@ -56,7 +67,7 @@ public class EventControllerIT extends AbstractBaseIT {
     @Test
     public void shouldUpdateSlotCapacity() {
         //given
-        addEventWithCustomSlot("CODE003", "SLOT001", 20);
+        insertEventWithCustomSlot("CODE003", "SLOT001", 20);
         //when
         ResponseEntity<EventDto> responseEntity = restTemplate.exchange("/events/CODE003/timeSlots/SLOT001/capacity/30", PUT, EMPTY, EventDto.class);
         //then
@@ -67,26 +78,26 @@ public class EventControllerIT extends AbstractBaseIT {
     @Test
     public void shouldDeleteEvent(){
         //given
-        addEvent("CODE004");
+        insertEvent("CODE004");
         //when
         restTemplate.delete("/events/CODE004");
         //then
-        assertThat(getEvent("CODE004")).isNull();
+        assertThat(getEvent("CODE004")).isNotPresent();
     }
 
-    private void addUser(String email){
+    private void insertUser(String email){
         userRepository.save(someUserWithEmail(email));
     }
 
-    private void addEvent(String eventCode){
+    private void insertEvent(String eventCode){
         eventRepository.save(someEvent(eventCode));
     }
 
-    private void addEventWithCustomSlot(String eventCode, String slotCode, int capacity){
+    private void insertEventWithCustomSlot(String eventCode, String slotCode, int capacity){
         eventRepository.save(someEventWithCustomSlot(eventCode, slotCode, capacity));
     }
 
-    private Event getEvent(String eventCode){
-        return eventRepository.findByCode(eventCode).get();
+    private Optional<Event> getEvent(String eventCode){
+        return eventRepository.findByCode(eventCode);
     }
 }

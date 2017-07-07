@@ -28,6 +28,7 @@ public class RegistrationController {
     @PostMapping("event/{eventCode}/slot/{slotCode}/user/{id}")
     @ResponseStatus(ACCEPTED)
     public String registerForEvent(@PathVariable String eventCode, @PathVariable String slotCode, @PathVariable int id){
-        return registrationService.register(eventCode, slotCode, id) ? "Registration Successful" : "Registration Unsuccessful";
+        registrationService.register(eventCode, slotCode, id);
+        return "Registration Successful";
     }
 }

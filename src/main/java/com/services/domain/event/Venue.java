@@ -3,13 +3,13 @@ package com.services.domain.event;
 import com.services.domain.AbstractEntity;
 import lombok.*;
 
-import javax.persistence.*;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.EAGER;
 
 @Data
 @Builder
@@ -25,6 +25,6 @@ public class Venue extends AbstractEntity {
     @Column(name = "CITY", nullable = false)
     private String city;
 
-    @OneToMany(fetch = EAGER, cascade = ALL, mappedBy = "venue")
+    @OneToMany(cascade = ALL, mappedBy = "venue")
     private List<TimeSlot> timeSlots = new ArrayList<>();
 }

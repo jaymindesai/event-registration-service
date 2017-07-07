@@ -19,7 +19,7 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
 
   jackson:
-    default-property-inclusion: non_null
+    default-property-inclusion: non_empty
     serialization:
       fail-on-empty-beans: false
       indent-output: true
