@@ -29,7 +29,7 @@ public class UserController {
     @PostMapping("")
     @ResponseStatus(ACCEPTED)
     public String addUser(@Valid @RequestBody UserDto user, BindingResult result){
-        return userService.addUser(user, result) ? "User Registered" : "Failed To Register User";
+        return userService.addUser(user, result) ? "User Registered!" : "Failed To Register User!";
     }
 
     @DeleteMapping("{id}")
