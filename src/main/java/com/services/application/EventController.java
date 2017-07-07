@@ -3,7 +3,6 @@ package com.services.application;
 import com.services.domain.event.EventDto;
 import com.services.domain.event.EventService;
 import com.services.domain.user.UserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +10,6 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.ACCEPTED;
 
-@Slf4j
 @RestController
 @RequestMapping("events")
 public class EventController {

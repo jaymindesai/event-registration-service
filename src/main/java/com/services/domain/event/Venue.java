@@ -9,7 +9,7 @@ import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.*;
 
 @Data
 @Builder
@@ -25,6 +25,6 @@ public class Venue extends AbstractEntity {
     @Column(name = "CITY", nullable = false)
     private String city;
 
-    @OneToMany(cascade = ALL, mappedBy = "venue")
+    @OneToMany(cascade = {PERSIST, MERGE, REFRESH}, mappedBy = "venue")
     private List<TimeSlot> timeSlots = new ArrayList<>();
 }
