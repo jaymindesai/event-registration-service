@@ -15,5 +15,5 @@
   #### Populate DB:
    - run `src/test/java/util/InsertDataScript`
 
-  #### Start Server
+  #### Start Server:
    - command line: `mvn spring-boot:run`
