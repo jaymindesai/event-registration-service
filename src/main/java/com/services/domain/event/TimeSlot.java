@@ -10,8 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import java.time.LocalTime;
 
-import static javax.persistence.CascadeType.ALL;
-
 @Data
 @ToString(exclude = "venue")
 @Builder
@@ -34,7 +32,7 @@ public class TimeSlot extends AbstractEntity {
     @Max(value = 50)
     private int capacity;
 
-    @ManyToOne(cascade = ALL)
+    @ManyToOne
     @JoinColumn(name = "VENUE_ID", nullable = false)
     private Venue venue;
 

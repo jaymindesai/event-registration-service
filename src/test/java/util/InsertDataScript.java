@@ -1,58 +1,64 @@
-package com.services.application;
+package util;
 
+import com.services.Application;
+import com.services.domain.event.Event;
+import com.services.domain.event.TimeSlot;
 import com.services.domain.event.Venue;
+import com.services.domain.registration.Registration;
+import com.services.domain.user.Address;
+import com.services.domain.user.Contact;
 import com.services.domain.user.User;
 import com.services.infrastructure.EventRepository;
 import com.services.infrastructure.RegistrationRepository;
 import com.services.infrastructure.UserRepository;
-import com.services.domain.registration.Registration;
-import com.services.domain.event.Event;
-import com.services.domain.event.TimeSlot;
-import com.services.domain.user.Address;
-import com.services.domain.user.Contact;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 
-import static com.services.domain.City.AHMEDABAD;
-import static com.services.domain.City.KOLKATA;
-import static com.services.domain.City.MUMBAI;
-import static com.services.domain.Slot.AFTERNOON_SECOND;
-import static com.services.domain.Slot.MORNING_FIRST;
-import static com.services.domain.Slot.MORNING_SECOND;
+import static com.services.domain.City.*;
+import static com.services.domain.Slot.*;
 import static java.util.Arrays.asList;
-import static org.springframework.http.HttpStatus.ACCEPTED;
 
-@RestController
-@RequestMapping("db")
-public class DatabaseController {
-
-    private final UserRepository userRepository;
-    private final EventRepository eventRepository;
-    private final RegistrationRepository registrationRepository;
+@SuppressWarnings("ALL")
+@ActiveProfiles(profiles = "db-setup")
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Application.class)
+public class InsertDataScript {
 
     @Autowired
-    public DatabaseController(UserRepository userRepository,
-                              EventRepository eventRepository,
-                              RegistrationRepository registrationRepository){
-        this.userRepository = userRepository;
-        this.eventRepository = eventRepository;
-        this.registrationRepository = registrationRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private EventRepository eventRepository;
+
+    @Autowired
+    private RegistrationRepository registrationRepository;
+
+    @BeforeClass
+    public static void setUpOnce() throws SQLException {
+        Connection Conn = DriverManager.getConnection ("jdbc:mysql://localhost:3306?user=root&password=root");
+        Statement statement = Conn.createStatement();
+        statement.executeUpdate("CREATE DATABASE EVENT_REGISTRATION");
     }
 
+    @Test
     @Transactional
-    @PutMapping("populate")
-    @ResponseStatus(ACCEPTED)
-    public String insertData() {
+    @Rollback(false)
+    public void populateDb(){
         insertIntoAllTables();
         insertEvents();
-        return "Database Populated";
     }
 
     private void insertEvents() {

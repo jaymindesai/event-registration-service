@@ -13,7 +13,7 @@
 
 ### Setup:
   #### Populate DB:
-   - create database registrationDB or change the datasource url in `src/main/resources/application.yml`
-   - change **ddl-auto** property to **create** in `src/main/resources/application.yml`
-   - start server : **mvn spring-boot:run**
-   - hit : **localhost:8090/api/db/populate**
+   - run `src/test/java/util/InsertDataScript`
+
+  #### Start Server
+   - start server: **mvn spring-boot:run**
