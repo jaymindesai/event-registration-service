@@ -7,7 +7,7 @@
 ### Database - MySQL
  
 ### Pre-requisites:
- - jdk8
+ - JDK 1.8
  - Maven 3.5.0 or above
  - Lombok (heavily used to avoid boilerplate code)
 
@@ -16,4 +16,4 @@
    - run `src/test/java/util/InsertDataScript`
 
   #### Start Server
-   - start server: **mvn spring-boot:run**
+   - command line: **mvn spring-boot:run**
