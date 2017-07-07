@@ -1,6 +1,7 @@
 <html>
     <body>
-        <h4>Hi ${userName}, Greetings of the day!</h4>
+        <h4>Hi ${userName},</h4>
+        <h4>Greetings for the day!</h4>
         <hr/>
         <h4>You have opted to register for ${eventName}.</h4>
         <h4>Event details:</h4>
