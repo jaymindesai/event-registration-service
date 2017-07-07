@@ -25,10 +25,10 @@ public class RegistrationController {
         return registrationService.getRegistrations();
     }
 
-    @PostMapping("event/{eventCode}/slot/{slotCode}/user/{id}")
+    @RequestMapping("event/{eventCode}/slot/{slotCode}/user/{id}")
     @ResponseStatus(ACCEPTED)
     public String registerForEvent(@PathVariable String eventCode, @PathVariable String slotCode, @PathVariable int id){
         registrationService.register(eventCode, slotCode, id);
-        return "Registration Successful";
+        return "Registration Successful!";
     }
 }

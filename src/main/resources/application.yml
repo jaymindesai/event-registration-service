@@ -25,6 +25,16 @@ spring:
       indent-output: true
       write-dates-as-timestamps: false
 
+  mail:
+    protocol: smtp
+    host: smtp.gmail.com
+    port: 587
+    username: eventregservice@gmail.com
+    password: Somep@ssword
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+
 ---
 
 spring:

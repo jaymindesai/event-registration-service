@@ -2,10 +2,12 @@ package com.services.application.handler;
 
 import com.services.application.handler.exceptions.EventRegistrationException;
 import com.services.application.handler.exceptions.NotFoundException;
+import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ValidationException;
 import java.io.IOException;
@@ -32,6 +34,12 @@ public class ErrorHandler {
     public void processRegistrationConflictError(Exception exception, HttpServletResponse response) throws IOException {
         logException(exception);
         response.sendError(CONFLICT.value(), exception.getMessage());
+    }
+
+    @ExceptionHandler({MessagingException.class, TemplateException.class})
+    public void processEmailMessageCreationError(Exception exception, HttpServletResponse response) throws IOException {
+        logException(exception);
+        response.sendError(INTERNAL_SERVER_ERROR.value(), exception.getMessage());
     }
 
     @ExceptionHandler(Exception.class)

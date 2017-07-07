@@ -8,6 +8,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import static javax.persistence.CascadeType.ALL;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -17,15 +19,15 @@ import javax.persistence.*;
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"USER_ID", "EVENT_ID"})})
 public class Registration extends AbstractEntity {
 
-    @OneToOne
+    @OneToOne(cascade = ALL)
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
 
-    @OneToOne
+    @OneToOne(cascade = ALL)
     @JoinColumn(name = "EVENT_ID", nullable = false)
     private Event event;
 
-    @OneToOne
+    @OneToOne(cascade = ALL)
     @JoinColumn(name = "TIME_SLOT_ID", nullable = false)
     private TimeSlot timeSlot;
 }

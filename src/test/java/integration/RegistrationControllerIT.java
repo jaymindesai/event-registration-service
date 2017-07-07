@@ -49,10 +49,10 @@ public class RegistrationControllerIT extends AbstractBaseIT {
         insertUser(email);
         insertEventWithCustomSlot("CODE060", "SLOT080", 20);
         //when
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity("/registrations/event/CODE060/slot/SLOT080/user/" + getUserByEmail(email).getId(), null, String.class);
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity("/registrations/event/CODE060/slot/SLOT080/user/" + getUserByEmail(email).getId(), String.class);
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(ACCEPTED);
-        assertThat(responseEntity.getBody()).isEqualTo("Registration Successful");
+        assertThat(responseEntity.getBody()).isEqualTo("Registration Successful!");
     }
 
     @Test
@@ -61,9 +61,9 @@ public class RegistrationControllerIT extends AbstractBaseIT {
         final String email = "ksl@vmn.com";
         insertUser(email);
         insertEventWithCustomSlot("CODE070", "SLOT090", 20);
-        restTemplate.postForEntity("/registrations/event/CODE070/slot/SLOT090/user/" + getUserByEmail(email).getId(), null, String.class);
+        restTemplate.getForEntity("/registrations/event/CODE070/slot/SLOT090/user/" + getUserByEmail(email).getId(), String.class);
         //when
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity("/registrations/event/CODE070/slot/SLOT090/user/" + getUserByEmail(email).getId(), null, String.class);
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity("/registrations/event/CODE070/slot/SLOT090/user/" + getUserByEmail(email).getId(), String.class);
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(CONFLICT);
     }
