@@ -20,7 +20,7 @@ import static org.springframework.http.HttpStatus.*;
 import static util.TestUtils.*;
 
 @SuppressWarnings("ALL")
-public class EventControllerIT extends BaseIT {
+public class EventControllerIT extends AbstractBaseIT {
 
     @Autowired
     private UserRepository userRepository;
