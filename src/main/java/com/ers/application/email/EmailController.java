@@ -25,14 +25,14 @@ public class EmailController {
     }
 
     /*
-     * This functionality is only available if application is hosted locally for now.
+     * For now, this functionality is only available if application is hosted locally.
      */
     @PostMapping("registrations/event/{eventCode}/slot/{slotCode}/user/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String sendMail(@PathVariable String eventCode, @PathVariable String slotCode, @PathVariable int id) throws MessagingException, IOException, TemplateException {
         MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-        emailHelper.prepareMessage(eventCode, slotCode, id, helper);
+        MimeMessageHelper messageHelper = new MimeMessageHelper(message);
+        emailHelper.prepareMessage(eventCode, slotCode, id, messageHelper);
         mailSender.send(message);
         return "Mail Sent Successfully!";
     }
