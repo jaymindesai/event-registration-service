@@ -34,7 +34,7 @@ public class EmailHelper {
         this.eventService = eventService;
     }
 
-    public void prepareMessage(String eventCode, String slotCode, int id, MimeMessageHelper helper) throws MessagingException, IOException, TemplateException {
+    public void prepareMessage(String eventCode, String slotCode, int id, MimeMessageHelper messageHelper) throws MessagingException, IOException, TemplateException {
         EventDto event = eventService.findByCode(eventCode);
         UserDto user = userService.find(id);
         TimeSlotDto timeSlot = event.getVenue().getTimeSlots().stream()
@@ -54,9 +54,9 @@ public class EmailHelper {
 
         config.setClassForTemplateLoading(this.getClass(), "/templates");
         Template template = config.getTemplate("confirmation.ftl");
-        helper.setTo(user.getEmail());
-        helper.setText(processTemplateIntoString(template, model), true);
-        helper.setSubject("Registration Confirmation Mail");
+        messageHelper.setTo(user.getEmail());
+        messageHelper.setText(processTemplateIntoString(template, model), true);
+        messageHelper.setSubject("Registration Confirmation Mail");
     }
 
     @SuppressWarnings("ALL")
