@@ -28,7 +28,7 @@ public class RegistrationConverter {
                 .registrantContact(registration.getUser().getContactDetails().getPrimary())
                 .eventName(registration.getEvent().getName())
                 .eventCode(registration.getEvent().getCode())
-                .eventVenue(registration.getEvent().getVenue().getName())
+                .eventVenue(registration.getEvent().getVenue().getName() + ", " +registration.getEvent().getVenue().getCity())
                 .timeSlotCode(registration.getTimeSlot().getSlotCode())
                 .timeSlotId(registration.getTimeSlot().getId())
                 .build();
