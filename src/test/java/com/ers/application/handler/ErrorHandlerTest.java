@@ -1,4 +1,4 @@
-package com.ers.handler;
+package com.ers.application.handler;
 
 public class ErrorHandlerTest {
 

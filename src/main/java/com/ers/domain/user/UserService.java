@@ -1,7 +1,7 @@
 package com.ers.domain.user;
 
+import com.ers.application.handler.exceptions.NotFoundException;
 import com.ers.domain.user.converters.UserConverter;
-import com.ers.handler.exceptions.NotFoundException;
 import com.ers.infrastructure.UserRepository;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;

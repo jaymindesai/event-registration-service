@@ -1,7 +1,7 @@
 package com.ers.domain.event;
 
+import com.ers.application.handler.exceptions.NotFoundException;
 import com.ers.domain.event.converters.EventConverter;
-import com.ers.handler.exceptions.NotFoundException;
 import com.ers.infrastructure.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

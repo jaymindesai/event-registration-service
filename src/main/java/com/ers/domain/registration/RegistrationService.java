@@ -1,13 +1,13 @@
 package com.ers.domain.registration;
 
+import com.ers.application.handler.exceptions.EventRegistrationException;
+import com.ers.application.handler.exceptions.NotFoundException;
 import com.ers.domain.event.Event;
 import com.ers.domain.event.EventService;
 import com.ers.domain.event.TimeSlot;
 import com.ers.domain.registration.converters.RegistrationConverter;
 import com.ers.domain.user.User;
 import com.ers.domain.user.UserService;
-import com.ers.handler.exceptions.EventRegistrationException;
-import com.ers.handler.exceptions.NotFoundException;
 import com.ers.infrastructure.RegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

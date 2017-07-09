@@ -1,4 +1,4 @@
-package com.ers.handler.exceptions;
+package com.ers.application.handler.exceptions;
 
 public class NotFoundException extends RuntimeException {
 
