@@ -79,7 +79,7 @@ public class TestUtils {
                 .get();
     }
 
-    public static User sUser() {
+    public static User aUser() {
         return User.builder()
                 .firstName("First")
                 .lastName("Last")
@@ -100,7 +100,7 @@ public class TestUtils {
     }
 
     public static User aUserWithEmail(String email) {
-        return Stream.of(sUser())
+        return Stream.of(aUser())
                 .peek(user -> user.setEmail(email))
                 .findFirst()
                 .get();
@@ -108,7 +108,7 @@ public class TestUtils {
 
     public static Registration aRegistration() {
         return Registration.builder()
-                .user(sUser())
+                .user(aUser())
                 .event(anEvent("CODE549"))
                 .timeSlot(aTimeSlot(aVenue()))
                 .build();
