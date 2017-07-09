@@ -3,7 +3,6 @@ package com.ers.domain.event;
 import com.ers.domain.event.converters.EventConverter;
 import com.ers.handler.exceptions.NotFoundException;
 import com.ers.infrastructure.EventRepository;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -14,8 +13,7 @@ import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
-import static util.TestUtils.anEvent;
-import static util.TestUtils.anEventDto;
+import static util.TestUtils.*;
 
 @SuppressWarnings("ALL")
 public class EventServiceTest {
@@ -29,9 +27,7 @@ public class EventServiceTest {
     private static final String SLOT_CODE = "SLOT1001";
 
     @Test
-    @Ignore
     public void shouldFindEventByCode(){
-        //TODO: Fix this!!
         //when
         EventDto event = service.findByCode(EVENT_CODE);
         //then
@@ -51,7 +47,7 @@ public class EventServiceTest {
     }
 
     @Test
-    public void shouldThrowNoEventsFoundException() {
+    public void shouldThrowNotFoundExceptionWhileFetchingAllEvents() {
         //given
         EventRepository eventRepository = mock(EventRepository.class);
         when(eventRepository.findAll()).thenReturn(emptyList());
@@ -72,7 +68,7 @@ public class EventServiceTest {
     }
 
     @Test
-    public void shouldThrowNoEventFoundException(){
+    public void shouldThrowNotFoundExceptionWhileCheckingWhetherEventValid(){
         //given
         EventRepository eventRepository = mock(EventRepository.class);
         when(eventRepository.findByCode(EVENT_CODE)).thenReturn(Optional.empty());
@@ -94,13 +90,25 @@ public class EventServiceTest {
     }
 
     @Test
-    @Ignore
     public void shouldUpdateSlotCapacty(){
-        //TODO: Fix this!!
+        //given
+        Event event = anEventWithCustomSlot(EVENT_CODE, SLOT_CODE, 40);
+        Event eventWithUpdatedSlot = anEventWithCustomSlot(EVENT_CODE, SLOT_CODE, 20);
+        EventDto eventDtoWithUpdatedSlot = anEventDtoWithCustomSlot(EVENT_CODE, SLOT_CODE, 20);
+        EventRepository eventRepository = mock(EventRepository.class);
+        EventConverter eventConverter = mock(EventConverter.class);
+        when(eventRepository.findByCode(EVENT_CODE)).thenReturn(Optional.ofNullable(event));
+        when(eventRepository.save(any(Event.class))).thenReturn(eventWithUpdatedSlot);
+        when(eventConverter.convertToDto(eventWithUpdatedSlot)).thenReturn(eventDtoWithUpdatedSlot);
+        EventService service = new EventService(eventConverter, eventRepository);
         //when
-        EventDto event = service.updateSlotCapacity(EVENT_CODE, SLOT_CODE, 20);
+        EventDto updatedEvent = service.updateSlotCapacity(EVENT_CODE, SLOT_CODE, 20);
         //then
-        verify(eventRepository).save(anEvent(EVENT_CODE));
+        verify(eventRepository).save(eventWithUpdatedSlot);
+        assertThat(updatedEvent.getVenue().getTimeSlots().stream()
+                .filter(timeSlot -> timeSlot.getSlotCode().equals(SLOT_CODE))
+                .findFirst().get()
+                .getCapacity()).isEqualTo(20);
     }
 
     @Test

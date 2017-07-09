@@ -7,12 +7,8 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
-import static util.TestUtils.anEventDto;
-import static util.TestUtils.anEventDtoWithCustomSlot;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 @SuppressWarnings("ALL")
 public class EventControllerTest {
@@ -32,7 +28,6 @@ public class EventControllerTest {
         //then
         verify(userService).checkIfUserRegistered();
         verify(eventService).getEvents();
-        assertThat(events.get(0).getCode()).isEqualTo(EVENT_CODE);
     }
 
     @Test
@@ -41,7 +36,6 @@ public class EventControllerTest {
         EventDto event = controller.getEvent(EVENT_CODE);
         //then
         verify(eventService).findByCode(EVENT_CODE);
-        assertThat(event.getCode()).isEqualTo(EVENT_CODE);
     }
 
     @Test
@@ -50,10 +44,6 @@ public class EventControllerTest {
         EventDto event = controller.updateSlotCapacity(EVENT_CODE, SLOT_CODE, 20);
         //then
         verify(eventService).updateSlotCapacity(EVENT_CODE, SLOT_CODE, 20);
-        assertThat(event.getVenue().getTimeSlots().stream()
-                .filter(timeSlot -> timeSlot.getSlotCode().equals(SLOT_CODE))
-                .findFirst().get()
-                .getCapacity()).isEqualTo(20);
     }
 
     @Test
@@ -66,10 +56,6 @@ public class EventControllerTest {
 
     private EventController createController() {
         //given
-        when(eventService.getEvents()).thenReturn(asList(anEventDto(EVENT_CODE)));
-        when(eventService.findByCode(any(String.class))).thenReturn(anEventDto(EVENT_CODE));
-        when(eventService.updateSlotCapacity(any(String.class), any(String.class), any(Integer.class)))
-                .thenReturn(anEventDtoWithCustomSlot(EVENT_CODE, SLOT_CODE, 20));
         return new EventController(eventService, userService);
     }
 }

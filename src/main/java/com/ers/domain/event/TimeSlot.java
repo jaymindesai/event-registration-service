@@ -17,7 +17,7 @@ import static javax.persistence.CascadeType.ALL;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = false, exclude = "venue")
 @Entity
 public class TimeSlot extends AbstractEntity {
 

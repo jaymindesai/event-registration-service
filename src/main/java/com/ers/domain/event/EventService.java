@@ -34,7 +34,8 @@ public class EventService {
         event.getVenue().getTimeSlots().stream()
                 .filter(timeSlot -> timeSlot.getSlotCode().equals(slotCode))
                 .forEach(timeSlot -> timeSlot.setCapacity(capacity));
-        return eventConverter.convertToDto(eventRepository.save(event));
+        Event save = eventRepository.save(event);
+        return eventConverter.convertToDto(save);
     }
 
     @Transactional
