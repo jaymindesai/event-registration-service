@@ -42,7 +42,7 @@ public class RegistrationService {
         List<RegistrationDto> registrations = stream(registrationRepository.findAll().spliterator(), false)
                 .map(registrationConverter::convertToDto)
                 .collect(toList());
-        if(registrations.isEmpty()){
+        if (registrations.isEmpty()) {
             throw new NotFoundException("No Registraions Found!");
         }
         return registrations;
@@ -54,7 +54,7 @@ public class RegistrationService {
         User user = userService.user(id);
         checkIfRegistrationAlreadyExists(event, user);
         TimeSlot timeSlot = getSlot(event, slotCode);
-        if (timeSlot.isFull()){
+        if (timeSlot.isFull()) {
             throw new EventRegistrationException("Time slot completely booked!");
         }
         eventService.updateSlotCapacity(eventCode, slotCode, timeSlot.decrementCapacity());

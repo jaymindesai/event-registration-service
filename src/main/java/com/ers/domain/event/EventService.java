@@ -11,6 +11,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.StreamSupport.stream;
+
 @Service
 public class EventService {
 
@@ -43,7 +44,7 @@ public class EventService {
         List<EventDto> events = stream(eventRepository.findAll().spliterator(), false)
                 .map(eventConverter::convertToDto)
                 .collect(toList());
-        if(events.isEmpty()){
+        if (events.isEmpty()) {
             throw new NotFoundException("No Events Found!");
         }
         return events;

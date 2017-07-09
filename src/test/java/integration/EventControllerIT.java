@@ -29,31 +29,33 @@ public class EventControllerIT extends AbstractBaseIT {
     private EventRepository eventRepository;
 
     @Test
-    public void shouldGetAllEvents(){
+    public void shouldGetAllEvents() {
         //given
         final String email = "abc@xyz.com";
         insertUser(email); // Register a user so that header check passes. Unregistered user should not have access to events.
         insertEvent("CODE001");
         //when
-        ResponseEntity<List<EventDto>> responseEntity = restTemplate.exchange("/events", GET, createEntity(email), new ParameterizedTypeReference<List<EventDto>>(){});
+        ResponseEntity<List<EventDto>> responseEntity =
+                restTemplate.exchange("/events", GET, createEntity(email), new ParameterizedTypeReference<List<EventDto>>() {});
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(OK);
         assertThat(responseEntity.getBody().get(0).getCode()).isNotNull();
     }
 
     @Test
-    public void shouldNotGetEventsIfUserUnregistered(){
+    public void shouldNotGetEventsIfUserUnregistered() {
         //given
         insertEvent("CODE055");
         //when
-        ResponseEntity<List<EventDto>> responseEntity = restTemplate.exchange("/events", GET, EMPTY, new ParameterizedTypeReference<List<EventDto>>(){});
+        ResponseEntity<List<EventDto>> responseEntity =
+                restTemplate.exchange("/events", GET, EMPTY, new ParameterizedTypeReference<List<EventDto>>() {});
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(NOT_FOUND);
         assertThat(responseEntity.getBody().get(0).getCode()).isNull();
     }
 
     @Test
-    public void shouldGetEvent(){
+    public void shouldGetEvent() {
         //given
         insertEvent("CODE002");
         //when
@@ -68,14 +70,15 @@ public class EventControllerIT extends AbstractBaseIT {
         //given
         insertEventWithCustomSlot("CODE003", "SLOT001", 20);
         //when
-        ResponseEntity<EventDto> responseEntity = restTemplate.exchange("/events/CODE003/timeSlots/SLOT001/capacity/30", PUT, EMPTY, EventDto.class);
+        ResponseEntity<EventDto> responseEntity =
+                restTemplate.exchange("/events/CODE003/timeSlots/SLOT001/capacity/30", PUT, EMPTY, EventDto.class);
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(ACCEPTED);
         assertThat(responseEntity.getBody().getVenue().getTimeSlots().get(0).getCapacity()).isEqualTo(30);
     }
 
     @Test
-    public void shouldDeleteEvent(){
+    public void shouldDeleteEvent() {
         //given
         insertEvent("CODE004");
         //when
@@ -84,19 +87,19 @@ public class EventControllerIT extends AbstractBaseIT {
         assertThat(getEvent("CODE004")).isNotPresent();
     }
 
-    private void insertUser(String email){
+    private void insertUser(String email) {
         userRepository.save(aUserWithEmail(email));
     }
 
-    private void insertEvent(String eventCode){
+    private void insertEvent(String eventCode) {
         eventRepository.save(anEvent(eventCode));
     }
 
-    private void insertEventWithCustomSlot(String eventCode, String slotCode, int capacity){
+    private void insertEventWithCustomSlot(String eventCode, String slotCode, int capacity) {
         eventRepository.save(anEventWithCustomSlot(eventCode, slotCode, capacity));
     }
 
-    private Optional<Event> getEvent(String eventCode){
+    private Optional<Event> getEvent(String eventCode) {
         return eventRepository.findByCode(eventCode);
     }
 }

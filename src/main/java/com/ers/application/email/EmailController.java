@@ -19,7 +19,7 @@ public class EmailController {
     private final EmailHelper emailHelper;
 
     @Autowired
-    public EmailController(JavaMailSender mailSender, EmailHelper emailHelper){
+    public EmailController(JavaMailSender mailSender, EmailHelper emailHelper) {
         this.mailSender = mailSender;
         this.emailHelper = emailHelper;
     }

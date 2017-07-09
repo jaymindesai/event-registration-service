@@ -18,7 +18,7 @@ public enum Slot {
     @Getter
     private LocalTime endTime;
 
-    Slot(String code, LocalTime startTime, LocalTime endTime){
+    Slot(String code, LocalTime startTime, LocalTime endTime) {
         this.code = code;
         this.startTime = startTime;
         this.endTime = endTime;

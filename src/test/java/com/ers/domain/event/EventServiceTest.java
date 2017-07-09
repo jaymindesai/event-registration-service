@@ -6,10 +6,11 @@ import com.ers.infrastructure.EventRepository;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
+import static java.util.Optional.empty;
+import static java.util.Optional.ofNullable;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -27,7 +28,7 @@ public class EventServiceTest {
     private static final String SLOT_CODE = "SLOT1001";
 
     @Test
-    public void shouldFindEventByCode(){
+    public void shouldFindEventByCode() {
         //when
         EventDto event = service.findByCode(EVENT_CODE);
         //then
@@ -37,7 +38,7 @@ public class EventServiceTest {
     }
 
     @Test
-    public void shouldGetEvents(){
+    public void shouldGetEvents() {
         //when
         List<EventDto> events = service.getEvents();
         //then
@@ -59,7 +60,7 @@ public class EventServiceTest {
     }
 
     @Test
-    public void shouldCheckWhetherEventValid(){
+    public void shouldCheckWhetherEventValid() {
         //when
         Event event = service.isValidEvent(EVENT_CODE);
         //then
@@ -68,10 +69,10 @@ public class EventServiceTest {
     }
 
     @Test
-    public void shouldThrowNotFoundExceptionWhileCheckingWhetherEventValid(){
+    public void shouldThrowNotFoundExceptionWhileCheckingWhetherEventValid() {
         //given
         EventRepository eventRepository = mock(EventRepository.class);
-        when(eventRepository.findByCode(EVENT_CODE)).thenReturn(Optional.empty());
+        when(eventRepository.findByCode(EVENT_CODE)).thenReturn(empty());
         EventService service = new EventService(eventConverter, eventRepository);
         //when
         Throwable throwable = catchThrowable(() -> service.isValidEvent(EVENT_CODE));
@@ -81,7 +82,7 @@ public class EventServiceTest {
     }
 
     @Test
-    public void shouldReturnEvent(){
+    public void shouldReturnEvent() {
         //when
         Event event = service.event(EVENT_CODE);
         //then
@@ -90,14 +91,14 @@ public class EventServiceTest {
     }
 
     @Test
-    public void shouldUpdateSlotCapacty(){
+    public void shouldUpdateSlotCapacty() {
         //given
         Event event = anEventWithCustomSlot(EVENT_CODE, SLOT_CODE, 40);
         Event eventWithUpdatedSlot = anEventWithCustomSlot(EVENT_CODE, SLOT_CODE, 20);
         EventDto eventDtoWithUpdatedSlot = anEventDtoWithCustomSlot(EVENT_CODE, SLOT_CODE, 20);
         EventRepository eventRepository = mock(EventRepository.class);
         EventConverter eventConverter = mock(EventConverter.class);
-        when(eventRepository.findByCode(EVENT_CODE)).thenReturn(Optional.ofNullable(event));
+        when(eventRepository.findByCode(EVENT_CODE)).thenReturn(ofNullable(event));
         when(eventRepository.save(any(Event.class))).thenReturn(eventWithUpdatedSlot);
         when(eventConverter.convertToDto(eventWithUpdatedSlot)).thenReturn(eventDtoWithUpdatedSlot);
         EventService service = new EventService(eventConverter, eventRepository);
@@ -112,7 +113,7 @@ public class EventServiceTest {
     }
 
     @Test
-    public void shouldDeleteEvent(){
+    public void shouldDeleteEvent() {
         //when
         service.deleteByCode(EVENT_CODE);
         //then
@@ -124,9 +125,9 @@ public class EventServiceTest {
         Event event = anEvent(EVENT_CODE);
         EventDto eventDto = anEventDto(EVENT_CODE);
         when(eventConverter.convertToDto(event)).thenReturn(eventDto);
-        when(eventRepository.findByCode(EVENT_CODE)).thenReturn(Optional.ofNullable(event));
+        when(eventRepository.findByCode(EVENT_CODE)).thenReturn(ofNullable(event));
         when(eventRepository.findAll()).thenReturn(asList(event));
-        when(eventRepository.save(event)).thenReturn(event);
+        when(eventRepository.save(any(Event.class))).thenReturn(event);
         return new EventService(eventConverter, eventRepository);
     }
 }

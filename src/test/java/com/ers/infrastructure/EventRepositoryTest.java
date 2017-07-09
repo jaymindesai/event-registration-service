@@ -28,7 +28,7 @@ public class EventRepositoryTest {
     private static final String OTHER_EVENT_CODE = "CODE1002";
 
     @Test
-    public void shouldFindByCode(){
+    public void shouldFindByCode() {
         //given
         entityManager.persist(anEvent(EVENT_CODE));
         //when
@@ -39,7 +39,7 @@ public class EventRepositoryTest {
     }
 
     @Test
-    public void shouldDeleteByCode(){
+    public void shouldDeleteByCode() {
         //given
         entityManager.persist(anEvent(EVENT_CODE));
         entityManager.persist(anEvent(OTHER_EVENT_CODE));

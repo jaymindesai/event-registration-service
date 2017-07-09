@@ -12,7 +12,7 @@ public enum City {
     @Getter
     private String value;
 
-    City(String value){
+    City(String value) {
         this.value = value;
     }
 }

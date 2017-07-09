@@ -17,24 +17,24 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("{id}")
-    public UserDto getUser(@PathVariable Integer id){
+    public UserDto getUser(@PathVariable Integer id) {
         return userService.find(id);
     }
 
     @PostMapping("")
     @ResponseStatus(ACCEPTED)
-    public String addUser(@Valid @RequestBody UserDto user, BindingResult result){
+    public String addUser(@Valid @RequestBody UserDto user, BindingResult result) {
         return userService.addUser(user, result) ? "User Registered!" : "Failed To Register User!";
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(ACCEPTED)
-    public void deleteUser(@PathVariable Integer id){
+    public void deleteUser(@PathVariable Integer id) {
         userService.delete(id);
     }
 }

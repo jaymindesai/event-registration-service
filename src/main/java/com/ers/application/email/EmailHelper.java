@@ -28,7 +28,7 @@ public class EmailHelper {
     private final EventService eventService;
 
     @Autowired
-    public EmailHelper(Configuration config, UserService userService, EventService eventService){
+    public EmailHelper(Configuration config, UserService userService, EventService eventService) {
         this.config = config;
         this.userService = userService;
         this.eventService = eventService;

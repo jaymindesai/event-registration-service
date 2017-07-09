@@ -11,11 +11,11 @@ public class EventConverter {
     private final VenueConverter venueConverter;
 
     @Autowired
-    public EventConverter(VenueConverter venueConverter){
+    public EventConverter(VenueConverter venueConverter) {
         this.venueConverter = venueConverter;
     }
 
-    public EventDto convertToDto(Event event){
+    public EventDto convertToDto(Event event) {
         return EventDto.builder()
                 .code(event.getCode())
                 .name(event.getName())
@@ -24,7 +24,7 @@ public class EventConverter {
                 .build();
     }
 
-    public Event convertToEvent(EventDto eventDto){
+    public Event convertToEvent(EventDto eventDto) {
         return Event.builder()
                 .code(eventDto.getCode())
                 .name(eventDto.getName())

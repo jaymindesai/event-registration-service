@@ -38,7 +38,7 @@ public class TimeSlot extends AbstractEntity {
     @JoinColumn(name = "VENUE_ID", nullable = false)
     private Venue venue;
 
-    public boolean isFull(){
+    public boolean isFull() {
         return this.capacity == 0;
     }
 

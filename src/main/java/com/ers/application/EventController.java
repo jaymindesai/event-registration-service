@@ -28,7 +28,7 @@ public class EventController {
      * For that a unique email_id of the registered user must be present in the request header.
      */
     @GetMapping("")
-    public List<EventDto> getEvents(){
+    public List<EventDto> getEvents() {
         userService.checkIfUserRegistered();
         return eventService.getEvents();
     }

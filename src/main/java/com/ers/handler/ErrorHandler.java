@@ -48,7 +48,7 @@ public class ErrorHandler {
         response.sendError(INTERNAL_SERVER_ERROR.value(), exception.getMessage());
     }
 
-    private void logException(Exception exception){
+    private void logException(Exception exception) {
         log.error("Exception Caught:", exception);
     }
 }

@@ -47,7 +47,7 @@ public class EventControllerTest {
     }
 
     @Test
-    public void shouldDeleteEvent(){
+    public void shouldDeleteEvent() {
         //when
         controller.deleteEvent(EVENT_CODE);
         //then

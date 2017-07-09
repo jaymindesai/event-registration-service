@@ -12,12 +12,12 @@ public class UserConverter {
     private final ContactConverter contactConverter;
 
     @Autowired
-    public UserConverter(AddressConverter addressConverter, ContactConverter contactConverter){
+    public UserConverter(AddressConverter addressConverter, ContactConverter contactConverter) {
         this.addressConverter = addressConverter;
         this.contactConverter = contactConverter;
     }
 
-    public UserDto convertToDto(User user){
+    public UserDto convertToDto(User user) {
         return UserDto.builder()
                 .id(user.getId())
                 .firstName(user.getFirstName())
@@ -28,7 +28,7 @@ public class UserConverter {
                 .build();
     }
 
-    public User convertToUser(UserDto userDto){
+    public User convertToUser(UserDto userDto) {
         return User.builder()
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())

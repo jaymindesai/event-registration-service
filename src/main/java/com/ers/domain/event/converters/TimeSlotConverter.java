@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TimeSlotConverter {
 
-    public TimeSlotDto convertToDto(TimeSlot timeSlot){
+    public TimeSlotDto convertToDto(TimeSlot timeSlot) {
         return TimeSlotDto.builder()
                 .slotCode(timeSlot.getSlotCode())
                 .startTime(timeSlot.getStartTime())
@@ -16,7 +16,7 @@ public class TimeSlotConverter {
                 .build();
     }
 
-    public TimeSlot convertToTimeSlot(TimeSlotDto timeSlotDto){
+    public TimeSlot convertToTimeSlot(TimeSlotDto timeSlotDto) {
         return TimeSlot.builder()
                 .slotCode(timeSlotDto.getSlotCode())
                 .startTime(timeSlotDto.getStartTime())

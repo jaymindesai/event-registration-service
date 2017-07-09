@@ -31,51 +31,54 @@ public class RegistrationControllerIT extends AbstractBaseIT {
     private RegistrationRepository registrationRepository;
 
     @Test
-    public void shouldGetAllRegistrations(){
+    public void shouldGetAllRegistrations() {
         //given
         insertRegistration();
         //when
-        ResponseEntity<List<RegistrationDto>> responseEntity = restTemplate.exchange("/registrations", GET, EMPTY, new ParameterizedTypeReference<List<RegistrationDto>>(){});
+        ResponseEntity<List<RegistrationDto>> responseEntity =
+                restTemplate.exchange("/registrations", GET, EMPTY, new ParameterizedTypeReference<List<RegistrationDto>>() {});
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(OK);
         assertThat(responseEntity.getBody().get(0).getRegistrantName()).isNotNull();
     }
 
     @Test
-    public void shouldRegisterForAnEvent(){
+    public void shouldRegisterForAnEvent() {
         //given
         final String email = "fgh@mnb.com";
         insertUser(email);
         insertEventWithCustomSlot("CODE060", "SLOT080", 20);
         //when
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity("/registrations/event/CODE060/slot/SLOT080/user/" + getUserByEmail(email).getId(), String.class);
+        ResponseEntity<String> responseEntity =
+                restTemplate.getForEntity("/registrations/event/CODE060/slot/SLOT080/user/" + getUserByEmail(email).getId(), String.class);
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(ACCEPTED);
         assertThat(responseEntity.getBody()).isEqualTo("Registration Successful!");
     }
 
     @Test
-    public void shouldNotRegisterIfRegistrationAlreadyExists(){
+    public void shouldNotRegisterIfRegistrationAlreadyExists() {
         //given
         final String email = "ksl@vmn.com";
         insertUser(email);
         insertEventWithCustomSlot("CODE070", "SLOT090", 20);
         restTemplate.getForEntity("/registrations/event/CODE070/slot/SLOT090/user/" + getUserByEmail(email).getId(), String.class);
         //when
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity("/registrations/event/CODE070/slot/SLOT090/user/" + getUserByEmail(email).getId(), String.class);
+        ResponseEntity<String> responseEntity =
+                restTemplate.getForEntity("/registrations/event/CODE070/slot/SLOT090/user/" + getUserByEmail(email).getId(), String.class);
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(CONFLICT);
     }
 
-    private void insertUser(String email){
+    private void insertUser(String email) {
         userRepository.save(aUserWithEmail(email));
     }
 
-    private User getUserByEmail(String email){
+    private User getUserByEmail(String email) {
         return userRepository.findByEmail(email).get();
     }
 
-    private void insertEventWithCustomSlot(String eventCode, String slotCode, int capacity){
+    private void insertEventWithCustomSlot(String eventCode, String slotCode, int capacity) {
         eventRepository.save(anEventWithCustomSlot(eventCode, slotCode, capacity));
     }
 
