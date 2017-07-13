@@ -19,10 +19,10 @@ import static util.TestUtils.anEvent;
 public class EventRepositoryTest {
 
     @Autowired
-    TestEntityManager entityManager;
+    private TestEntityManager entityManager;
 
     @Autowired
-    EventRepository repository;
+    private EventRepository repository;
 
     private static final String EVENT_CODE = "CODE1001";
     private static final String OTHER_EVENT_CODE = "CODE1002";

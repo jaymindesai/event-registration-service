@@ -46,9 +46,11 @@ public class InsertDataScript {
     @Autowired
     private RegistrationRepository registrationRepository;
 
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306?user=root&password=root";
+
     @BeforeClass
     public static void setUpOnce() throws SQLException {
-        Connection Conn = DriverManager.getConnection ("jdbc:mysql://localhost:3306?user=root&password=root");
+        Connection Conn = DriverManager.getConnection(DATABASE_URL);
         Statement statement = Conn.createStatement();
         statement.executeUpdate("CREATE DATABASE EVENT_REGISTRATION");
     }
@@ -56,7 +58,7 @@ public class InsertDataScript {
     @Test
     @Transactional
     @Rollback(false)
-    public void populateDb(){
+    public void populateDb() {
         insertIntoAllTables();
         insertEvents();
     }
@@ -95,11 +97,11 @@ public class InsertDataScript {
         eventRepository.save(event);
     }
 
-    private void insertIntoAllTables(){
+    private void insertIntoAllTables() {
         User user = User.builder()
                 .firstName("Jaymin")
                 .lastName("Desai")
-                .email("jaymeeen@gmail.com")
+                .email("jayme@gmail.com")
                 .contactDetails(Contact.builder()
                         .primary("9988776655")
                         .build())

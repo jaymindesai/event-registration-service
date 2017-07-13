@@ -13,10 +13,10 @@ import static org.mockito.Mockito.verify;
 @SuppressWarnings("ALL")
 public class EventControllerTest {
 
-    EventService eventService = mock(EventService.class);
-    UserService userService = mock(UserService.class);
+    private EventService eventService = mock(EventService.class);
+    private UserService userService = mock(UserService.class);
 
-    EventController controller = createController();
+    private EventController controller = new EventController(eventService, userService);
 
     private static final String EVENT_CODE = "CODE1001";
     private static final String SLOT_CODE = "SLOT1001";
@@ -52,10 +52,5 @@ public class EventControllerTest {
         controller.deleteEvent(EVENT_CODE);
         //then
         verify(eventService).deleteByCode(EVENT_CODE);
-    }
-
-    private EventController createController() {
-        //given
-        return new EventController(eventService, userService);
     }
 }
