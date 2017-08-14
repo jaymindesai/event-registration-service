@@ -1,6 +1,6 @@
 package integration;
 
-import com.ers.domain.registration.RegistrationDto;
+import com.ers.domain.registration.dto.RegistrationDto;
 import com.ers.domain.user.User;
 import com.ers.infrastructure.EventRepository;
 import com.ers.infrastructure.RegistrationRepository;
@@ -19,7 +19,7 @@ import static org.springframework.http.HttpStatus.*;
 import static util.TestUtils.*;
 
 @SuppressWarnings("ALL")
-public class RegistrationControllerIT extends AbstractBaseIT {
+public class RegistrationIT extends AbstractBaseIT {
 
     @Autowired
     private UserRepository userRepository;

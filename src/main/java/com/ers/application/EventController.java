@@ -1,7 +1,7 @@
 package com.ers.application;
 
-import com.ers.domain.event.EventDto;
 import com.ers.domain.event.EventService;
+import com.ers.domain.event.dto.EventDto;
 import com.ers.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

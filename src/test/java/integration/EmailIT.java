@@ -2,7 +2,7 @@ package integration;
 
 import org.junit.Test;
 
-public class EmailControllerIT extends AbstractBaseIT {
+public class EmailIT extends AbstractBaseIT {
 
     //TODO: Add missing test cases...
 

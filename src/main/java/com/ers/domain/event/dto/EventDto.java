@@ -1,4 +1,4 @@
-package com.ers.domain.event;
+package com.ers.domain.event.dto;
 
 import com.ers.domain.AbstractDto;
 import com.fasterxml.jackson.annotation.JsonFormat;

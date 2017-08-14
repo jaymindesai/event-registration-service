@@ -1,9 +1,9 @@
-package com.ers.domain.registration;
+package com.ers.domain.registration.dto;
 
 import com.ers.domain.AbstractDto;
-import com.ers.domain.event.EventDto;
-import com.ers.domain.event.TimeSlotDto;
-import com.ers.domain.user.UserDto;
+import com.ers.domain.event.dto.EventDto;
+import com.ers.domain.event.dto.TimeSlotDto;
+import com.ers.domain.user.dto.UserDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 

@@ -101,7 +101,7 @@ public class InsertDataScript {
         User user = User.builder()
                 .firstName("Jaymin")
                 .lastName("Desai")
-                .email("jayme@gmail.com")
+                .email("jaymeeen@gmail.com")
                 .contactDetails(Contact.builder()
                         .primary("9988776655")
                         .build())

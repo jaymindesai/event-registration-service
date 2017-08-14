@@ -1,10 +1,10 @@
 package com.ers.application.email;
 
-import com.ers.domain.event.EventDto;
 import com.ers.domain.event.EventService;
-import com.ers.domain.event.TimeSlotDto;
-import com.ers.domain.user.UserDto;
+import com.ers.domain.event.dto.EventDto;
+import com.ers.domain.event.dto.TimeSlotDto;
 import com.ers.domain.user.UserService;
+import com.ers.domain.user.dto.UserDto;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

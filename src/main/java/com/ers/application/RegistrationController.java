@@ -1,7 +1,7 @@
 package com.ers.application;
 
-import com.ers.domain.registration.RegistrationDto;
 import com.ers.domain.registration.RegistrationService;
+import com.ers.domain.registration.dto.RegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

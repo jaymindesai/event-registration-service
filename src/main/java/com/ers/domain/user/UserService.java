@@ -1,7 +1,7 @@
 package com.ers.domain.user;
 
 import com.ers.application.handler.exceptions.NotFoundException;
-import com.ers.domain.user.converters.UserConverter;
+import com.ers.domain.user.dto.UserDto;
 import com.ers.infrastructure.UserRepository;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,23 +13,24 @@ import org.springframework.validation.BindingResult;
 import javax.validation.ValidationException;
 import java.util.Optional;
 
+import static com.ers.domain.user.converters.UserConverter.convertToDto;
+import static com.ers.domain.user.converters.UserConverter.convertToUser;
+
 @Service
 public class UserService {
 
     private HttpServletRequest request;
-    private final UserConverter userConverter;
     private final UserRepository userRepository;
 
     @Autowired
-    public UserService(HttpServletRequest request, UserConverter userConverter, UserRepository userRepository) {
+    public UserService(HttpServletRequest request, UserRepository userRepository) {
         this.request = request;
-        this.userConverter = userConverter;
         this.userRepository = userRepository;
     }
 
     @Transactional
     public UserDto find(int id) {
-        return userConverter.convertToDto(Optional.ofNullable(userRepository.findOne(id))
+        return convertToDto(Optional.ofNullable(userRepository.findOne(id))
                 .orElseThrow(() -> new NotFoundException("User not registered with the system!")));
     }
 
@@ -42,7 +43,7 @@ public class UserService {
     @Transactional
     public Boolean addUser(UserDto user, BindingResult result) {
         validateUser(result);
-        return userRepository.save(userConverter.convertToUser(user)) != null;
+        return userRepository.save(convertToUser(user)) != null;
     }
 
     @Transactional

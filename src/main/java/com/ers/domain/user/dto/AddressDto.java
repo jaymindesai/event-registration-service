@@ -1,4 +1,4 @@
-package com.ers.domain.user;
+package com.ers.domain.user.dto;
 
 import com.ers.domain.AbstractDto;
 import lombok.*;

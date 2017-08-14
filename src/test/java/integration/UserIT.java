@@ -2,7 +2,7 @@ package integration;
 
 import org.junit.Test;
 
-public class UserControllerIT extends AbstractBaseIT {
+public class UserIT extends AbstractBaseIT {
 
     //TODO: Add missing test cases...
 

@@ -1,7 +1,7 @@
 package integration;
 
 import com.ers.domain.event.Event;
-import com.ers.domain.event.EventDto;
+import com.ers.domain.event.dto.EventDto;
 import com.ers.infrastructure.EventRepository;
 import com.ers.infrastructure.UserRepository;
 import org.junit.Test;
@@ -20,7 +20,7 @@ import static org.springframework.http.HttpStatus.*;
 import static util.TestUtils.*;
 
 @SuppressWarnings("ALL")
-public class EventControllerIT extends AbstractBaseIT {
+public class EventIT extends AbstractBaseIT {
 
     @Autowired
     private UserRepository userRepository;

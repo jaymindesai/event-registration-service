@@ -6,6 +6,7 @@ import com.ers.domain.event.Event;
 import com.ers.domain.event.EventService;
 import com.ers.domain.event.TimeSlot;
 import com.ers.domain.registration.converters.RegistrationConverter;
+import com.ers.domain.registration.dto.RegistrationDto;
 import com.ers.domain.user.User;
 import com.ers.domain.user.UserService;
 import com.ers.infrastructure.RegistrationRepository;
@@ -22,17 +23,12 @@ import static java.util.stream.StreamSupport.stream;
 public class RegistrationService {
 
     private final RegistrationRepository registrationRepository;
-    private final RegistrationConverter registrationConverter;
     private final EventService eventService;
     private final UserService userService;
 
     @Autowired
-    public RegistrationService(RegistrationRepository registrationRepository,
-                               RegistrationConverter registrationConverter,
-                               EventService eventService,
-                               UserService userService) {
+    public RegistrationService(RegistrationRepository registrationRepository, EventService eventService, UserService userService) {
         this.registrationRepository = registrationRepository;
-        this.registrationConverter = registrationConverter;
         this.eventService = eventService;
         this.userService = userService;
     }
@@ -40,7 +36,7 @@ public class RegistrationService {
     @Transactional
     public List<RegistrationDto> getRegistrations() {
         List<RegistrationDto> registrations = stream(registrationRepository.findAll().spliterator(), false)
-                .map(registrationConverter::convertToDto)
+                .map(RegistrationConverter::convertToDto)
                 .collect(toList());
         if (registrations.isEmpty()) {
             throw new NotFoundException("No Registraions Found!");

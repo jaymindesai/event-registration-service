@@ -2,31 +2,31 @@ package com.ers.domain.event;
 
 import com.ers.application.handler.exceptions.NotFoundException;
 import com.ers.domain.event.converters.EventConverter;
+import com.ers.domain.event.dto.EventDto;
 import com.ers.infrastructure.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
 
+import static com.ers.domain.event.converters.EventConverter.convertToDto;
 import static java.util.stream.Collectors.toList;
-import static java.util.stream.StreamSupport.stream;
 
 @Service
 public class EventService {
 
-    private final EventConverter eventConverter;
     private final EventRepository eventRepository;
 
     @Autowired
-    public EventService(EventConverter eventConverter, EventRepository eventRepository) {
-        this.eventConverter = eventConverter;
+    public EventService(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
     }
 
     @Transactional
     public EventDto findByCode(String eventCode) {
-        return eventConverter.convertToDto(isValidEvent(eventCode));
+        return convertToDto(isValidEvent(eventCode));
     }
 
     @Transactional
@@ -35,14 +35,14 @@ public class EventService {
         event.getVenue().getTimeSlots().stream()
                 .filter(timeSlot -> timeSlot.getSlotCode().equals(slotCode))
                 .forEach(timeSlot -> timeSlot.setCapacity(capacity));
-        Event save = eventRepository.save(event);
-        return eventConverter.convertToDto(save);
+        Event savedEvent = eventRepository.save(event);
+        return convertToDto(savedEvent);
     }
 
     @Transactional
     public List<EventDto> getEvents() {
-        List<EventDto> events = stream(eventRepository.findAll().spliterator(), false)
-                .map(eventConverter::convertToDto)
+        List<EventDto> events = StreamSupport.stream(eventRepository.findAll().spliterator(), false)
+                .map(EventConverter::convertToDto)
                 .collect(toList());
         if (events.isEmpty()) {
             throw new NotFoundException("No Events Found!");
@@ -61,7 +61,7 @@ public class EventService {
         return isValidEvent(eventCode);
     }
 
-    public Event isValidEvent(String eventCode) {
+    private Event isValidEvent(String eventCode) {
         return eventRepository.findByCode(eventCode)
                 .orElseThrow(() -> new NotFoundException("Invalid event eventCode - " + eventCode + ", no such event found!"));
     }

@@ -1,7 +1,7 @@
 package com.ers.application;
 
-import com.ers.domain.event.EventDto;
 import com.ers.domain.event.EventService;
+import com.ers.domain.event.dto.EventDto;
 import com.ers.domain.user.UserService;
 import org.junit.Test;
 
@@ -15,7 +15,6 @@ public class EventControllerTest {
 
     private EventService eventService = mock(EventService.class);
     private UserService userService = mock(UserService.class);
-
     private EventController controller = new EventController(eventService, userService);
 
     private static final String EVENT_CODE = "CODE1001";

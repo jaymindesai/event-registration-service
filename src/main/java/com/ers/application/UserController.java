@@ -1,7 +1,7 @@
 package com.ers.application;
 
-import com.ers.domain.user.UserDto;
 import com.ers.domain.user.UserService;
+import com.ers.domain.user.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;

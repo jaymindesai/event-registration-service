@@ -1,12 +1,9 @@
 package util;
 
 import com.ers.domain.event.Event;
-import com.ers.domain.event.EventDto;
 import com.ers.domain.event.TimeSlot;
 import com.ers.domain.event.Venue;
-import com.ers.domain.event.converters.EventConverter;
-import com.ers.domain.event.converters.TimeSlotConverter;
-import com.ers.domain.event.converters.VenueConverter;
+import com.ers.domain.event.dto.EventDto;
 import com.ers.domain.registration.Registration;
 import com.ers.domain.user.Address;
 import com.ers.domain.user.Contact;
@@ -19,14 +16,11 @@ import java.util.stream.Stream;
 
 import static com.ers.domain.City.KOLKATA;
 import static com.ers.domain.Slot.MORNING_SECOND;
+import static com.ers.domain.event.converters.EventConverter.convertToDto;
 import static java.util.Arrays.asList;
 
 @SuppressWarnings("ALL")
 public class TestUtils {
-
-    private static TimeSlotConverter timeSlotConverter = new TimeSlotConverter();
-    private static VenueConverter venueConverter = new VenueConverter(timeSlotConverter);
-    private static EventConverter eventConverter = new EventConverter(venueConverter);
 
     public static HttpEntity<String> createEntity(String email) {
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -46,11 +40,11 @@ public class TestUtils {
     }
 
     public static EventDto anEventDto(String eventCode){
-        return eventConverter.convertToDto(anEvent(eventCode));
+        return convertToDto(anEvent(eventCode));
     }
 
     public static EventDto anEventDtoWithCustomSlot(String eventCode, String slotCode, int capacity){
-        return eventConverter.convertToDto(anEventWithCustomSlot(eventCode, slotCode, capacity));
+        return convertToDto(anEventWithCustomSlot(eventCode, slotCode, capacity));
     }
 
     private static TimeSlot aTimeSlot(Venue venue) {

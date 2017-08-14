@@ -1,13 +1,11 @@
 package com.ers.domain.event.converters;
 
 import com.ers.domain.event.TimeSlot;
-import com.ers.domain.event.TimeSlotDto;
-import org.springframework.stereotype.Component;
+import com.ers.domain.event.dto.TimeSlotDto;
 
-@Component
 public class TimeSlotConverter {
 
-    public TimeSlotDto convertToDto(TimeSlot timeSlot) {
+    public static TimeSlotDto convertToDto(TimeSlot timeSlot) {
         return TimeSlotDto.builder()
                 .slotCode(timeSlot.getSlotCode())
                 .startTime(timeSlot.getStartTime())
@@ -16,7 +14,7 @@ public class TimeSlotConverter {
                 .build();
     }
 
-    public TimeSlot convertToTimeSlot(TimeSlotDto timeSlotDto) {
+    public static TimeSlot convertToTimeSlot(TimeSlotDto timeSlotDto) {
         return TimeSlot.builder()
                 .slotCode(timeSlotDto.getSlotCode())
                 .startTime(timeSlotDto.getStartTime())

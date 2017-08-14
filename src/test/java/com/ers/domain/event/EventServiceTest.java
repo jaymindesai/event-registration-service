@@ -1,7 +1,7 @@
 package com.ers.domain.event;
 
 import com.ers.application.handler.exceptions.NotFoundException;
-import com.ers.domain.event.converters.EventConverter;
+import com.ers.domain.event.dto.EventDto;
 import com.ers.infrastructure.EventRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,10 +20,8 @@ import static util.TestUtils.*;
 @SuppressWarnings("ALL")
 public class EventServiceTest {
 
-    private EventConverter eventConverter = mock(EventConverter.class);
     private EventRepository eventRepository = mock(EventRepository.class);
-
-    private EventService service = new EventService(eventConverter, eventRepository);
+    private EventService service = new EventService(eventRepository);
 
     private Event event;
     private EventDto eventDto;
@@ -36,7 +34,6 @@ public class EventServiceTest {
         //given
         event = anEvent(EVENT_CODE);
         eventDto = anEventDto(EVENT_CODE);
-        when(eventConverter.convertToDto(event)).thenReturn(eventDto);
         when(eventRepository.findByCode(EVENT_CODE)).thenReturn(ofNullable(event));
         when(eventRepository.save(any(Event.class))).thenReturn(event);
     }
@@ -47,7 +44,6 @@ public class EventServiceTest {
         EventDto event = service.findByCode(EVENT_CODE);
         //then
         verify(eventRepository).findByCode(EVENT_CODE);
-        verify(eventConverter).convertToDto(anEvent(EVENT_CODE));
         assertThat(event.getCode()).isEqualTo(EVENT_CODE);
     }
 
@@ -59,7 +55,6 @@ public class EventServiceTest {
         List<EventDto> events = service.getEvents();
         //then
         verify(eventRepository).findAll();
-        verify(eventConverter).convertToDto(any(Event.class));
         assertThat(events.get(0).getCode()).isEqualTo(EVENT_CODE);
     }
 
@@ -74,20 +69,11 @@ public class EventServiceTest {
     }
 
     @Test
-    public void shouldCheckWhetherEventValid() {
-        //when
-        Event event = service.isValidEvent(EVENT_CODE);
-        //then
-        verify(eventRepository).findByCode(EVENT_CODE);
-        assertThat(event.getCode()).isEqualTo(EVENT_CODE);
-    }
-
-    @Test
     public void shouldThrowNotFoundExceptionWhileCheckingWhetherEventValid() {
         //given
         when(eventRepository.findByCode(EVENT_CODE)).thenReturn(empty());
         //when
-        Throwable throwable = catchThrowable(() -> service.isValidEvent(EVENT_CODE));
+        Throwable throwable = catchThrowable(() -> service.findByCode(EVENT_CODE));
         //then
         assertThat(throwable).isInstanceOf(NotFoundException.class)
                 .hasMessage("Invalid event eventCode - " + EVENT_CODE + ", no such event found!");
@@ -108,7 +94,6 @@ public class EventServiceTest {
         Event eventWithUpdatedSlot = anEventWithCustomSlot(EVENT_CODE, SLOT_CODE, 20);
         when(eventRepository.findByCode(EVENT_CODE)).thenReturn(ofNullable(anEventWithCustomSlot(EVENT_CODE, SLOT_CODE, 40)));
         when(eventRepository.save(any(Event.class))).thenReturn(eventWithUpdatedSlot);
-        when(eventConverter.convertToDto(eventWithUpdatedSlot)).thenReturn(anEventDtoWithCustomSlot(EVENT_CODE, SLOT_CODE, 20));
         //when
         EventDto updatedEvent = service.updateSlotCapacity(EVENT_CODE, SLOT_CODE, 20);
         //then
