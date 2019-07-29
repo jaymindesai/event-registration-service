@@ -1,6 +1,6 @@
 # **Event Registration Service**
 
-## Backend API for a specific on demand Registration System.
+## Backend API for an on demand Registration System.
 
 ### Development Kit - Java 8
 ### Framework - Spring Boot
