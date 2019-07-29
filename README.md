@@ -7,7 +7,7 @@
  - Spring Boot
  - MySQL
  - Maven 3.5.0 or above
- - Lombok (heavily used to avoid boilerplate code). Plugin required in IDE for annotation processing.
+ - Lombok (heavily used to avoid boilerplate code - plugin required in IDE for annotation processing)
 
 ### Setup:
   #### Populate DB:
