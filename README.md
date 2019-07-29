@@ -1,6 +1,6 @@
 # **Event Registration Service**
 
-## Backend API for an on demand Registration System.
+## REST API for an event registration system.
  
 ### Requirements:
  - JDK 1.8
