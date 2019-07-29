@@ -1,13 +1,11 @@
 # **Event Registration Service**
 
 ## Backend API for an on demand Registration System.
-
-### Development Kit - Java 8
-### Framework - Spring Boot
-### Database - MySQL
  
-### Pre-requisites:
+### Requirements:
  - JDK 1.8
+ - Spring Boot
+ - MySQL
  - Maven 3.5.0 or above
  - Lombok (heavily used to avoid boilerplate code). Plugin required in IDE for annotation processing.
 
