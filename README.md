@@ -1,6 +1,6 @@
-# **Event Registration Service**
+# Event Registration Service
 
-## REST API for an event registration system.
+#### Template REST API for an event registration system.
  
 ### Requirements:
  - JDK 1.8
